@@ -27,3 +27,4 @@ $routes->get('/apply-lowongan', 'Home::apply_lowongan');
 $routes->get('/profil', 'Home::profil');
 
 $routes->get('/notifikasi', 'Home::notifikasi');
+
