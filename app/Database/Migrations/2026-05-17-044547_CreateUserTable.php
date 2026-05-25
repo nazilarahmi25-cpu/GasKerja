@@ -4,12 +4,11 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUserTable extends Migration
+class CreateUsersTable extends Migration
 {
     public function up()
     {
-
-        $this->forge->addField([
+      $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
@@ -51,12 +50,11 @@ class CreateUserTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->createTable('users');
+        $this->forge->createTable('users');  
     }
-    
+
     public function down()
     {
          $this->forge->dropTable('users');
     }
-
-} 
+}

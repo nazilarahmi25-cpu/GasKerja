@@ -10,19 +10,22 @@ class CreateLamaranTable extends Migration
     {
         $this->forge->addField([
 
-             'id' => [
+            'id' => [
                 'type' => 'INT',
+                'constraint' => 11,
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
 
             'lowongan_id' => [
                 'type' => 'INT',
+                'constraint' => 11,
                 'unsigned' => true,
             ],
 
             'pencari_id' => [
                 'type' => 'INT',
+                'constraint' => 11,
                 'unsigned' => true,
             ],
 
@@ -31,7 +34,7 @@ class CreateLamaranTable extends Migration
                 'constraint' => 255,
             ],
 
-             'surat_lamaran' => [
+            'surat_lamaran' => [
                 'type' => 'TEXT',
                 'null' => true,
             ],
@@ -39,10 +42,13 @@ class CreateLamaranTable extends Migration
             'status' => [
                 'type' => 'ENUM',
                 'constraint' => ['diproses', 'diterima', 'ditolak'],
-                'default' => 'diproses'
+                'default' => 'diproses',
             ],
 
-             'tanggal_lamar DATETIME DEFAULT CURRENT_TIMESTAMP'
+            'tanggal_lamar' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addKey('id', true);

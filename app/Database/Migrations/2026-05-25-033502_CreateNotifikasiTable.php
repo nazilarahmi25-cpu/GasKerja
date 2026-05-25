@@ -8,7 +8,7 @@ class CreateNotifikasiTable extends Migration
 {
     public function up()
     {
-      $this->forge->addField([
+         $this->forge->addField([
 
             'id' => [
                 'type' => 'INT',
@@ -47,8 +47,8 @@ class CreateNotifikasiTable extends Migration
         $this->forge->createTable('notifikasi');
     }
 
-     public function down()
+    public function down()
     {
-        $this->forge->dropTable('notifikasi');
+         $this->forge->dropTable('notifikasi');
     }
 }
