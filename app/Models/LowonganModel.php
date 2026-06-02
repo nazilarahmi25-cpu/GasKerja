@@ -7,13 +7,11 @@ use CodeIgniter\Model;
 class LowonganKerjaModel extends Model
 {
     protected $table = 'lowongan_kerja';
-
     protected $primaryKey = 'lowongan_id';
-
-    protected $returnType = 'array';
-
     protected $useAutoIncrement = true;
-
+    protected $returnType = 'array';
+    protected $useSoftDeletes = true;
+    protected $protectFields= true;
     protected $allowedFields = [
         'perusahaan_id',
         'judul',
@@ -27,20 +25,9 @@ class LowonganKerjaModel extends Model
     ];
 
     protected $useTimestamps = true;
-
+    protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';
+    protected $updateField = 'update_at';
+    
 
-    protected $updatedField = 'updated_at';
-
-    public function getLowonganPerusahaan()
-    {
-        return $this->select(
-                        'lowongan_kerja.*, perusahaan.nama_perusahaan'
-                    )
-                    ->join(
-                        'perusahaan',
-                        'perusahaan.perusahaan_id = lowongan_kerja.perusahaan_id'
-                    )
-                    ->findAll();
-    }
 }

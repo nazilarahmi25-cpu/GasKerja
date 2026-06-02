@@ -7,13 +7,11 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
     protected $table = 'pengguna';
-
     protected $primaryKey = 'id';
-
-    protected $returnType = 'array';
-
     protected $useAutoIncrement = true;
-
+    protected $returnType = 'array';
+    protected $useSoftDeletes = true;
+    protected $protectFields= true;
     protected $allowedFields = [
         'nama',
         'email',
@@ -22,8 +20,8 @@ class UserModel extends Model
     ];
 
     protected $useTimestamps = true;
-
+    protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';
-
-    protected $updatedField = 'updated_at';
+    protected $updateField = 'update_at';
+    
 }

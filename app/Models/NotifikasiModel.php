@@ -7,13 +7,11 @@ use CodeIgniter\Model;
 class NotifikasiModel extends Model
 {
     protected $table = 'notifikasi';
-
     protected $primaryKey = 'notifikasi_id';
-
-    protected $returnType = 'array';
-
     protected $useAutoIncrement = true;
-
+    protected $returnType = 'array';
+    protected $useSoftDeletes = true;
+    protected $protectFields= true;
     protected $allowedFields = [
         'user_id',
         'judul',
@@ -24,13 +22,8 @@ class NotifikasiModel extends Model
     ];
 
     protected $useTimestamps = true;
-
+    protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';
-
-    public function getNotifikasiUser($userId)
-    {
-        return $this->where('user_id', $userId)
-                    ->orderBy('created_at', 'DESC')
-                    ->findAll();
-    }
+    protected $updateField = 'update_at';
+   
 }

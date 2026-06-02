@@ -7,11 +7,11 @@ use CodeIgniter\Model;
 class PencariKerjaModel extends Model
 {
     protected $table = 'pencari_kerja';
-
     protected $primaryKey = 'pencari_kerja_id';
-
+    protected $useAutoIncrement = true;
     protected $returnType = 'array';
-
+    protected $useSoftDeletes = true;
+    protected $protectFields= true;
     protected $allowedFields = [
         'pencari_kerja_id',
         'no_hp',
@@ -21,15 +21,9 @@ class PencariKerjaModel extends Model
         'bio'
     ];
 
-    public function getPencariWithUser()
-    {
-        return $this->select(
-                        'pencari_kerja.*, pengguna.nama, pengguna.email'
-                    )
-                    ->join(
-                        'pengguna',
-                        'pengguna.id = pencari_kerja.pencari_kerja_id'
-                    )
-                    ->findAll();
-    }
+    protected $useTimestamps = true;
+    protected $dateFormat = 'datetime';
+    protected $createdField = 'created_at';
+    protected $updateField = 'update_at';
+
 }

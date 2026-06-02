@@ -7,11 +7,11 @@ use CodeIgniter\Model;
 class PerusahaanModel extends Model
 {
     protected $table = 'perusahaan';
-
     protected $primaryKey = 'perusahaan_id';
-
+    protected $useAutoIncrement = true;
     protected $returnType = 'array';
-
+    protected $useSoftDeletes = true;
+    protected $protectFields= true;
     protected $allowedFields = [
         'perusahaan_id',
         'nama_perusahaan',
@@ -21,13 +21,9 @@ class PerusahaanModel extends Model
         'website'
     ];
 
-    public function getPerusahaanWithUser()
-    {
-        return $this->select('perusahaan.*, pengguna.nama, pengguna.email')
-                    ->join(
-                        'pengguna',
-                        'pengguna.id = perusahaan.perusahaan_id'
-                    )
-                    ->findAll();
-    }
+    protected $useTimestamps = true;
+    protected $dateFormat = 'datetime';
+    protected $createdField = 'created_at';
+    protected $updateField = 'update_at';
+
 }
