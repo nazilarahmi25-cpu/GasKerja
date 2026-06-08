@@ -31,7 +31,18 @@ class CreateNotifikasiTable extends Migration
                 'default' => 'belum'
             ],
 
-            'created_at DATETIME DEFAULT CURRENT_TIMESTAMP'
+           'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addKey('id', true);

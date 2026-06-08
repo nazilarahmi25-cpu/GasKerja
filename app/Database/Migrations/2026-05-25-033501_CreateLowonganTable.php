@@ -58,7 +58,18 @@ class CreateLowonganTable extends Migration
                 'default' => 'pending'
             ],
 
-            'tanggal_post DATETIME DEFAULT CURRENT_TIMESTAMP'
+           'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addKey('id', true);
