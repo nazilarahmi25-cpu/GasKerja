@@ -4,27 +4,26 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class RegisterPerusahaan extends Model
+class RegisterPerusahaanModel extends Model
 {
-    protected $table            = 'RegisterPerusahaan';
-    protected $primaryKey       = 'id';
+    protected $table      = 'RegisterPerusahaan';
+    protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $returnType = 'array';
+    protected $protectFields = true;
 
-    protected bool $allowEmptyInserts = false;
-    protected bool $updateOnlyChanged = true;
-
-    protected array $casts = [];
-    protected array $castHandlers = [];
+    protected $allowedFields = [
+        'nama_umkm',
+        'email',
+        'bidang_usaha',
+        'alamat',
+        'telepon',
+        'password'
+    ];
 
     protected $useTimestamps = true;
     protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
     protected $deletedField = 'deleted_at';
-
-   
 }
