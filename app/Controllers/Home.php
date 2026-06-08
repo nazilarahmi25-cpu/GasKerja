@@ -7,23 +7,67 @@ use App\Models\PerusahaanModel;
 
 class Home extends BaseController
 {
+    // =====================
+    // HALAMAN STATIS
+    // =====================
+    
     public function index()
     {
-        return view('pagesI/home');
+        return view('landing_page');
     }
+
+    public function about_us()
+    {
+        return view('about_us');
+    }
+
+    public function notifikasi()
+    {
+        return view('notifikasi');
+    }
+
+    public function profil()
+    {
+        return view('profil');
+    }
+
+    public function detail_lowongan()
+    {
+        return view('detail_lowongan');
+    }
+
+    public function apply_lowongan()
+    {
+        return view('apply_lowongan');
+    }
+
+    public function dashboard_pencari()
+    {
+        return view('dashboard_pencari');
+    }
+
+    public function dashboard_perusahaan()
+    {
+        return view('dashboard_perusahaan');
+    }
+
+    public function dashboard_admin()
+    {
+        return view('dashboard_admin');
+    }
+
+    // =====================
+    // LOGIN
+    // =====================
 
     public function login()
     {
-<<<<<<< HEAD
         // Jika sudah login, redirect sesuai role
         if (session()->get('logged_in')) {
             return $this->redirectByRole(session()->get('role'));
         }
 
         return view('auth/login');
-=======
-        return view('pages/auth/login');
->>>>>>> luppy
     }
 
     public function processLogin()
@@ -39,7 +83,6 @@ class Home extends BaseController
                 ->with('error', 'Email atau password salah');
         }
 
-        // Simpan session
         session()->set([
             'user_id'   => $user['id'],
             'nama'      => $user['nama'],
@@ -48,7 +91,6 @@ class Home extends BaseController
             'logged_in' => true,
         ]);
 
-<<<<<<< HEAD
         return $this->redirectByRole($user['role']);
     }
 
@@ -71,21 +113,6 @@ class Home extends BaseController
         }
 
         return view('auth/register');
-=======
-        // Arahkan sesuai role
-        if ($user['role'] === 'admin') {
-            return redirect()->to('/dashboard-admin');
-        } elseif ($user['role'] === 'perusahaan') {
-            return redirect()->to('/dashboard-perusahaan');
-        } else {
-            return redirect()->to('/dashboard-pencari');
-        }
-    }
-
-    public function register()
-    {
-        return view('pages/auth/register');
->>>>>>> luppy
     }
 
     public function processRegister()
@@ -107,14 +134,10 @@ class Home extends BaseController
         $userModel->save([
             'nama'     => $this->request->getPost('nama'),
             'email'    => $this->request->getPost('email'),
-<<<<<<< HEAD
             'password' => password_hash(
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
-=======
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
->>>>>>> luppy
             'role'     => 'pencari_kerja',
         ]);
 
@@ -122,41 +145,32 @@ class Home extends BaseController
             ->with('success', 'Registrasi berhasil, silakan login');
     }
 
+    // =====================
+    // REGISTER PERUSAHAAN
+    // =====================
+
     public function register_perusahaan()
     {
-<<<<<<< HEAD
         // Jika sudah login, redirect sesuai role
         if (session()->get('logged_in')) {
             return $this->redirectByRole(session()->get('role'));
         }
 
         return view('auth/register_perusahaan');
-=======
-        return view('pages/auth/register_perusahaan');
->>>>>>> luppy
     }
 
     public function processRegisterPerusahaan()
     {
-        $userModel      = new UserModel();
+        $userModel       = new UserModel();
         $perusahaanModel = new PerusahaanModel();
 
         $rules = [
-<<<<<<< HEAD
             'nama_umkm'    => 'required|min_length[3]',
             'email'        => 'required|valid_email|is_unique[users.email]',
             'bidang_usaha' => 'required',
             'alamat'       => 'required',
             'telepon'      => 'required',
             'password'     => 'required|min_length[6]',
-=======
-            'nama_umkm'   => 'required',
-            'email'       => 'required|valid_email|is_unique[users.email]',
-            'bidang_usaha'=> 'required',
-            'alamat'      => 'required',
-            'telepon'     => 'required',
-            'password'    => 'required|min_length[6]',
->>>>>>> luppy
         ];
 
         if (!$this->validate($rules)) {
@@ -165,44 +179,42 @@ class Home extends BaseController
                 ->withInput();
         }
 
-        // 1. Simpan ke tabel users dulu
+        // Simpan ke tabel users
         $userModel->save([
             'nama'     => $this->request->getPost('nama_umkm'),
             'email'    => $this->request->getPost('email'),
-<<<<<<< HEAD
             'password' => password_hash(
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
-=======
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
->>>>>>> luppy
             'role'     => 'perusahaan',
         ]);
 
-        $userId = $userModel->getInsertID(); // ambil ID user yang baru dibuat
+        $userId = $userModel->getInsertID();
 
-        // 2. Simpan ke tabel perusahaan
+        // Simpan ke tabel perusahaan
         $perusahaanModel->save([
-            'user_id'        => $userId,
-            'nama_perusahaan'=> $this->request->getPost('nama_umkm'),
-            'nama_umkm'      => $this->request->getPost('nama_umkm'),
-            'bidang_usaha'   => $this->request->getPost('bidang_usaha'),
-            'alamat'         => $this->request->getPost('alamat'),
-            'telepon'        => $this->request->getPost('telepon'),
+            'user_id'         => $userId,
+            'nama_perusahaan' => $this->request->getPost('nama_umkm'),
+            'nama_umkm'       => $this->request->getPost('nama_umkm'),
+            'bidang_usaha'    => $this->request->getPost('bidang_usaha'),
+            'alamat'          => $this->request->getPost('alamat'),
+            'telepon'         => $this->request->getPost('telepon'),
         ]);
 
         return redirect()->to('/login')
             ->with('success', 'Registrasi perusahaan berhasil, silakan login');
     }
 
-    public function logout()
+    // =====================
+    // APPLY LOWONGAN
+    // =====================
+
+    public function processApply()
     {
-        session()->destroy();
-        return redirect()->to('/login');
+        // akan diisi nanti
     }
 
-<<<<<<< HEAD
     public function updateProfil()
     {
         // akan diisi nanti
@@ -223,18 +235,4 @@ class Home extends BaseController
                 return redirect()->to('/dashboard-pencari');
         }
     }
-=======
-    // Halaman-halaman view biasa
-    public function dashboard_pencari()  { return view('pages/dashboard_pencari'); }
-    public function dashboard_perusahaan() { return view('pages/dashboard_perusahaan'); }
-    public function dashboard_admin()    { return view('pages/dashboard_admin'); }
-    public function detail_lowongan()    { return view('pages/detail_lowongan'); }
-    public function apply_lowongan()     { return view('pages/apply_lowongan'); }
-    public function profil()             { return view('pages/profil'); }
-    public function notifikasi()         { return view('pages/notifikasi'); }
-    public function about_us()           { return view('pages/about_us'); }
-
-    public function processApply()   { /* nanti */ }
-    public function updateProfil()   { /* nanti */ }
->>>>>>> luppy
 }
