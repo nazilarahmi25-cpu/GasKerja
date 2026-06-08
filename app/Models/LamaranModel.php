@@ -27,5 +27,3 @@ class LamaranModel extends Model
     protected $deletedField = 'deleted_at';
 
 }
-
-###ini khaiiii
