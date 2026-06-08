@@ -62,7 +62,12 @@ class Home extends BaseController
 
     public function login()
     {
-        return view('halaman_login');
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
+
+        return view('auth/login');
     }
 
     public function processLogin()
@@ -86,19 +91,14 @@ class Home extends BaseController
             'logged_in' => true,
         ]);
 
-        if ($user['role'] === 'admin') {
-            return redirect()->to('/dashboard-admin');
-        } elseif ($user['role'] === 'perusahaan') {
-            return redirect()->to('/dashboard-perusahaan');
-        } else {
-            return redirect()->to('/dashboard-pencari');
-        }
+        return $this->redirectByRole($user['role']);
     }
 
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/login');
+        return redirect()->to('/login')
+            ->with('success', 'Kamu berhasil keluar');
     }
 
     // =====================
@@ -107,7 +107,12 @@ class Home extends BaseController
 
     public function register()
     {
-        return view('halaman_register');
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
+
+        return view('auth/register');
     }
 
     public function processRegister()
@@ -130,9 +135,9 @@ class Home extends BaseController
             'nama'     => $this->request->getPost('nama'),
             'email'    => $this->request->getPost('email'),
             'password' => password_hash(
-                            $this->request->getPost('password'),
-                            PASSWORD_DEFAULT
-                          ),
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
             'role'     => 'pencari_kerja',
         ]);
 
@@ -146,7 +151,12 @@ class Home extends BaseController
 
     public function register_perusahaan()
     {
-        return view('halaman_register');
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
+
+        return view('auth/register_perusahaan');
     }
 
     public function processRegisterPerusahaan()
@@ -155,7 +165,7 @@ class Home extends BaseController
         $perusahaanModel = new PerusahaanModel();
 
         $rules = [
-            'nama_umkm'    => 'required',
+            'nama_umkm'    => 'required|min_length[3]',
             'email'        => 'required|valid_email|is_unique[users.email]',
             'bidang_usaha' => 'required',
             'alamat'       => 'required',
@@ -174,9 +184,9 @@ class Home extends BaseController
             'nama'     => $this->request->getPost('nama_umkm'),
             'email'    => $this->request->getPost('email'),
             'password' => password_hash(
-                            $this->request->getPost('password'),
-                            PASSWORD_DEFAULT
-                          ),
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
             'role'     => 'perusahaan',
         ]);
 
@@ -208,5 +218,21 @@ class Home extends BaseController
     public function updateProfil()
     {
         // akan diisi nanti
+    }
+
+    // =====================
+    // HELPER PRIVATE
+    // =====================
+
+    private function redirectByRole(string $role)
+    {
+        switch ($role) {
+            case 'admin':
+                return redirect()->to('/dashboard-admin');
+            case 'perusahaan':
+                return redirect()->to('/dashboard-perusahaan');
+            default:
+                return redirect()->to('/dashboard-pencari');
+        }
     }
 }
