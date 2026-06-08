@@ -8,10 +8,11 @@ class CreatePencariKerjaTable extends Migration
 {
     public function up()
     {
-        $this->forge->addfield([
+        $this->forge->addField([
             
             'id' => [
                 'type' => 'INT',
+                'constraint' => 11,
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
@@ -48,28 +49,27 @@ class CreatePencariKerjaTable extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
-        $this->forge->addkey('id', true);
-
-        $this->forge->addForeignKey(
-            'user_id',
-            'users',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
+        $this->forge->addKey('id', true);
 
         $this->forge->createTable('pencari_kerja');
-
     }
 
     public function down()
     {
-        $this->forge->dropTable('pencari_kerja');
+         $this->forge->dropTable('pencari_kerja');
     }
 }
-
-        
-
-           

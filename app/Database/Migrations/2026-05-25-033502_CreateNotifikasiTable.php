@@ -8,7 +8,7 @@ class CreateNotifikasiTable extends Migration
 {
     public function up()
     {
-      $this->forge->addField([
+         $this->forge->addField([
 
             'id' => [
                 'type' => 'INT',
@@ -31,7 +31,18 @@ class CreateNotifikasiTable extends Migration
                 'default' => 'belum'
             ],
 
-            'created_at DATETIME DEFAULT CURRENT_TIMESTAMP'
+           'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addKey('id', true);
@@ -47,8 +58,8 @@ class CreateNotifikasiTable extends Migration
         $this->forge->createTable('notifikasi');
     }
 
-     public function down()
+    public function down()
     {
-        $this->forge->dropTable('notifikasi');
+         $this->forge->dropTable('notifikasi');
     }
 }

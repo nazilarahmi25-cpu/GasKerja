@@ -4,46 +4,41 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUsersTable extends Migration
+class CreateRegisterPerusahaanTable extends Migration
 {
     public function up()
     {
-      $this->forge->addField([
+        $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-
-            'nama' => [
+            'nama_umkm' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 100,
+                'constraint' => 255,
             ],
-
             'email' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'unique'     => true,
+                'constraint' => 255,
             ],
-
+            'bidang_usaha' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'alamat' => [
+                'type' => 'TEXT',
+            ],
+            'telepon' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
+            ],
             'password' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
-
-            'role' => [
-                'type'       => 'ENUM',
-                'constraint' => ['admin', 'perusahaan', 'pencari_kerja'],
-            ],
-
-            'foto' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
-                'null'       => true,
-            ],
-
-          'created_at' => [
+            'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
@@ -58,11 +53,12 @@ class CreateUsersTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->createTable('users');  
+        $this->forge->addUniqueKey('email');
+        $this->forge->createTable('RegisterPerusahaan');
     }
 
     public function down()
     {
-         $this->forge->dropTable('users');
+        $this->forge->dropTable('RegisterPerusahaan');
     }
 }

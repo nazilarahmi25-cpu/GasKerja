@@ -8,13 +8,14 @@ class CreateLowonganTable extends Migration
 {
     public function up()
     {
-        $this->forge->addfield([
+       $this->forge->addField([
 
             'id' => [
                 'type' => 'INT',
+                'constraint' => 11,
                 'unsigned' => true,
                 'auto_increment' => true,
-            ],
+],
 
             'perusahaan_id' => [
                 'type' => 'INT',
@@ -23,7 +24,7 @@ class CreateLowonganTable extends Migration
                 
            'judul' => [
                 'type' => 'VARCHAR',
-                'contraint' => 100,
+                'constraint' => 100,
             ],
 
            'deskripsi' => [
@@ -54,13 +55,24 @@ class CreateLowonganTable extends Migration
             'status' => [
                 'type' => 'ENUM',
                 'constraint' => ['aktif', 'nonaktif', 'pending'],
-                'defult' => 'pending'
+                'default' => 'pending'
             ],
 
-            'tanggal_post DATETIME DEFULT CURRENT_TIMESTAMP'
+           'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
-        $this->forge->addkey('id', true);
+        $this->forge->addKey('id', true);
 
         $this->forge->addForeignKey(
             'perusahaan_id',
@@ -71,15 +83,10 @@ class CreateLowonganTable extends Migration
         );
 
          $this->forge->createTable('lowongan');
-    
     }
 
-     public function down()
+    public function down()
     {
          $this->forge->dropTable('lowongan');
     }
-
 }
-
-
-                

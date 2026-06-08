@@ -8,7 +8,7 @@ class CreatePerusahaanTable extends Migration
 {
     public function up()
     {
-        $this->forge->addfield([
+    $this->forge->addField([
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
@@ -39,25 +39,31 @@ class CreatePerusahaanTable extends Migration
 
             'foto' => [
                 'type' => 'VARCHAR',
-                'constarint' => 255,
+                'constraint' => 255,
                 'null' => true,
             ],
             
-            'created_at DATETIME DEFAULT CURRENT_TIMESTAMP'
-        
+           'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
-        $this->forge->addkey('id', true);
+        $this->forge->addKey('id', true);
 
-        $this->forge->createTable('users');
-    
+        $this->forge->createTable('perusahaan');
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('perusahaan');
     }
 }
-
-
-
