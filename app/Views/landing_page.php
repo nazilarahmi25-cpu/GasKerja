@@ -6,19 +6,22 @@
 <section class="hero">
     <div class="container hero-grid">
         <div class="hero-text">
-            <span class="badge">Temukan Lowongan Terbaik</span>
+            <!-- <span class="badge">Temukan Lowongan Terbaik</span> -->
 
             <h1>
-                Cari Lowongan Kerja yang Cocok
-                untuk Masa Depanmu
+              Temukan Peluang Kerja dan Pekerja Terbaik di Kota Palu
+
             </h1>
 
             <p>
-                GasKerja membantu kamu menemukan pekerjaan
-                Full Time, Part Time, dan Freelance dari
-                berbagai perusahaan terpercaya.
+                Platform andalan anak muda Palu untuk cari kerja part-time, dan solusi tercepat buat UMKM lokal yang butuh tenaga kerja siap aksi.
             </p>
 
+            <div class="hero-buttons">
+                <a href="<?= base_url('/lowongan') ?>" class="btn-primary"> Cari Lowongan </a>
+                <a href="<?= base_url('/register') ?>" class="btn-secondary"> Pasang Lowonga </a>
+            </div>
+            
             <form class="search-box">
                 <input type="text" placeholder="Cari lowongan kerja...">
 
@@ -31,6 +34,7 @@
 
                 <button type="submit">Cari</button>
             </form>
+            
         </div>
 
         <div class="hero-card">
@@ -126,8 +130,27 @@
                     gratis oleh pencari kerja.
                 </p>
             </div>
+        
         </div>
     </div>
 </section>
 
 <?= $this->endSection() ?>
+
+<label>Pilih Role</label>
+
+    <div class="role-selector">
+
+        <input type="radio" id="pencari" name="role" value="pencari" checked hidden>
+        <label for="pencari" class="role-card">
+            <span>👤</span>
+            <p>Pencari Kerja</p>
+        </label>
+
+        <input type="radio" id="perusahaan" name="role" value="perusahaan" hidden>
+    <label for="perusahaan" class="role-card">
+            <span>🏢</span>
+            <p>Perusahaan</p>
+        </label>
+
+</div>
