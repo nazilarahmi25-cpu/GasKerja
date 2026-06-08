@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\LowonganKerjaModel;
+use App\Models\LowonganModel;
 
 class LowonganController extends BaseController
 {
@@ -10,7 +10,7 @@ class LowonganController extends BaseController
 
     public function __construct()
     {
-        $this->lowonganModel = new LowonganKerjaModel();
+        $this->lowonganModel = new LowonganModel();
     }
 
     // READ - Tampilkan semua lowongan
