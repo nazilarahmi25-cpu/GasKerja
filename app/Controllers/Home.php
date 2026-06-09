@@ -10,7 +10,11 @@ class Home extends BaseController
     // =====================
     // HALAMAN STATIS
     // =====================
+<<<<<<< HEAD
+
+=======
     
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
     public function index()
     {
         return view('landing_page');
@@ -62,12 +66,16 @@ class Home extends BaseController
 
     public function login()
     {
+<<<<<<< HEAD
+        return view('halaman_login');
+=======
         // Jika sudah login, redirect sesuai role
         if (session()->get('logged_in')) {
             return $this->redirectByRole(session()->get('role'));
         }
 
         return view('auth/login');
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
     }
 
     public function processLogin()
@@ -91,14 +99,28 @@ class Home extends BaseController
             'logged_in' => true,
         ]);
 
+<<<<<<< HEAD
+        if ($user['role'] === 'admin') {
+            return redirect()->to('/dashboard-admin');
+        } elseif ($user['role'] === 'perusahaan') {
+            return redirect()->to('/dashboard-perusahaan');
+        } else {
+            return redirect()->to('/dashboard-pencari');
+        }
+=======
         return $this->redirectByRole($user['role']);
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
     }
 
     public function logout()
     {
         session()->destroy();
+<<<<<<< HEAD
+        return redirect()->to('/login');
+=======
         return redirect()->to('/login')
             ->with('success', 'Kamu berhasil keluar');
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
     }
 
     // =====================
@@ -107,12 +129,16 @@ class Home extends BaseController
 
     public function register()
     {
+<<<<<<< HEAD
+        return view('halaman_register');
+=======
         // Jika sudah login, redirect sesuai role
         if (session()->get('logged_in')) {
             return $this->redirectByRole(session()->get('role'));
         }
 
         return view('auth/register');
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
     }
 
     public function processRegister()
@@ -135,9 +161,15 @@ class Home extends BaseController
             'nama'     => $this->request->getPost('nama'),
             'email'    => $this->request->getPost('email'),
             'password' => password_hash(
+<<<<<<< HEAD
+                            $this->request->getPost('password'),
+                            PASSWORD_DEFAULT
+                          ),
+=======
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
             'role'     => 'pencari_kerja',
         ]);
 
@@ -151,12 +183,16 @@ class Home extends BaseController
 
     public function register_perusahaan()
     {
+<<<<<<< HEAD
+        return view('halaman_register');
+=======
         // Jika sudah login, redirect sesuai role
         if (session()->get('logged_in')) {
             return $this->redirectByRole(session()->get('role'));
         }
 
         return view('auth/register_perusahaan');
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
     }
 
     public function processRegisterPerusahaan()
@@ -165,7 +201,11 @@ class Home extends BaseController
         $perusahaanModel = new PerusahaanModel();
 
         $rules = [
+<<<<<<< HEAD
+            'nama_umkm'    => 'required',
+=======
             'nama_umkm'    => 'required|min_length[3]',
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
             'email'        => 'required|valid_email|is_unique[users.email]',
             'bidang_usaha' => 'required',
             'alamat'       => 'required',
@@ -184,9 +224,15 @@ class Home extends BaseController
             'nama'     => $this->request->getPost('nama_umkm'),
             'email'    => $this->request->getPost('email'),
             'password' => password_hash(
+<<<<<<< HEAD
+                            $this->request->getPost('password'),
+                            PASSWORD_DEFAULT
+                          ),
+=======
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
             'role'     => 'perusahaan',
         ]);
 
@@ -219,6 +265,8 @@ class Home extends BaseController
     {
         // akan diisi nanti
     }
+<<<<<<< HEAD
+=======
 
     // =====================
     // HELPER PRIVATE
@@ -235,4 +283,5 @@ class Home extends BaseController
                 return redirect()->to('/dashboard-pencari');
         }
     }
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
 }

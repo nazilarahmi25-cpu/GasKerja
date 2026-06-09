@@ -206,6 +206,9 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xamppp\\htdocs\\poryek_GasKerja\\public\\index.php')
+<<<<<<< HEAD
+CRITICAL - 2026-06-08 18:55:06 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "halaman_register.php"
+=======
 CRITICAL - 2026-06-08 12:06:05 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "halaman_login.php"
 [Method: GET, Route: login]
 in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
@@ -246,6 +249,7 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 10 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
 CRITICAL - 2026-06-08 12:13:15 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "halaman_register.php"
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
 [Method: GET, Route: register]
 in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('halaman_register.php')
@@ -257,6 +261,9 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
  8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+<<<<<<< HEAD
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xamppp\\htdocs\\poryek_GasKerja\\public\\index.php')
+=======
 10 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
 ERROR - 2026-06-08 12:13:31 --> Table 'gaskerja.lowongan_kerja' doesn't exist
 in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
@@ -989,3 +996,4 @@ in APPPATH\Controllers\Home.php on line 79.
 DEBUG - 2026-06-08 19:20:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-06-08 19:21:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-06-08 19:26:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc

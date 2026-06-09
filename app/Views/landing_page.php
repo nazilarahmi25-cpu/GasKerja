@@ -17,10 +17,10 @@
                 Platform andalan anak muda Palu untuk cari kerja part-time, dan solusi tercepat buat UMKM lokal yang butuh tenaga kerja siap aksi.
             </p>
 
-            <div class="hero-buttons">
+            <!-- <div class="hero-buttons">
                 <a href="<?= base_url('/lowongan') ?>" class="btn-primary"> Cari Lowongan </a>
                 <a href="<?= base_url('/register') ?>" class="btn-secondary"> Pasang Lowonga </a>
-            </div>
+            </div> -->
             
             <form class="search-box">
                 <input type="text" placeholder="Cari lowongan kerja...">
