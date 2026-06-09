@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class LowonganModel extends Model
 {
-    protected $table = 'lowongan_kerja';
-    protected $primaryKey = 'lowongan_id';
+    protected $table = 'lowongan';
+    protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
@@ -16,12 +16,12 @@ class LowonganModel extends Model
         'perusahaan_id',
         'judul',
         'deskripsi',
+        'kualifikasi',
         'lokasi',
-        'gaji_min',
-        'gaji_max',
-        'tipe_pekerjaan',
+        'gaji',
+        'tipe_kerja',
         'status',
-        'deadline'
+        
     ];
 
     protected $useTimestamps = true;
