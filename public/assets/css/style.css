@@ -721,3 +721,564 @@ body {
     background:#2563eb;
     color:white;
 }
+
+/* =========================
+   ADMIN HERO
+========================= */
+
+.admin-hero{
+
+    padding:90px 0;
+
+    background:
+    linear-gradient(
+        135deg,
+        #77a2ff,
+        #1d4ed8
+    );
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.admin-hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+    height:450px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:50%;
+
+    top:-150px;
+    right:-100px;
+}
+
+.admin-hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    background:rgba(255,255,255,.05);
+
+    border-radius:50%;
+
+    bottom:-100px;
+    left:-80px;
+}
+
+/* ===================================
+   CONTENT
+=================================== */
+
+.admin-hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+    display:grid;
+
+    grid-template-columns:1.5fr 1fr;
+
+    gap:40px;
+
+    align-items:center;
+}
+
+/* ===================================
+   WELCOME
+=================================== */
+
+.admin-badge{
+
+    display:inline-block;
+
+    background:rgba(255,255,255,.15);
+
+    color:#fff;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+    backdrop-filter:blur(10px);
+}
+
+.admin-welcome h1{
+
+    color:#fff;
+
+    font-size:52px;
+
+    line-height:1.2;
+
+    margin-bottom:20px;
+
+    font-weight:700;
+}
+
+.admin-welcome p{
+
+    color:rgba(255,255,255,.9);
+
+    font-size:17px;
+
+    max-width:650px;
+
+    line-height:1.8;
+}
+
+/* ===================================
+   STATISTIK
+=================================== */
+
+.admin-stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.admin-stat-card{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    transition:0.3s;
+    text-align:center;
+}
+
+.admin-stat-card:hover{
+    transform:translateY(-8px);
+}
+
+.admin-stat-card h2{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.admin-stat-card p{
+    font-size:14px;
+    opacity:0.9;
+}
+
+/* ===================================
+   CARD MENU ADMIN
+=================================== */
+
+.admin-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.06);
+
+    transition:.3s;
+}
+
+.admin-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 15px 35px rgba(37,99,235,.15);
+}
+
+.admin-card h3{
+
+    color:#111827;
+
+    margin-bottom:12px;
+}
+
+.admin-card p{
+
+    color:#6b7280;
+
+    line-height:1.7;
+}
+
+/* ===================================
+   JUDUL SECTION
+=================================== */
+
+.admin-title{
+
+    text-align:center;
+
+    margin-bottom:50px;
+}
+
+.admin-title h2{
+
+    font-size:36px;
+
+    color:#111827;
+
+    position:relative;
+
+    display:inline-block;
+}
+
+.admin-title h2::after{
+
+    content:"";
+
+    width:70px;
+
+    height:4px;
+
+    background:#2563eb;
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:-12px;
+
+    transform:translateX(-50%);
+
+    border-radius:20px;
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:900px){
+
+    .admin-hero-content{
+
+        grid-template-columns:1fr;
+    }
+
+    .admin-welcome{
+
+        text-align:center;
+    }
+
+    .admin-welcome h1{
+
+        font-size:38px;
+    }
+}
+
+
+/* ==============================
+   KELOLA PERUSAHAAN ADMIN
+============================== */
+
+body{
+    background:#f3f4f6;
+    font-family:Arial, sans-serif;
+}
+
+/* Container Judul */
+h2{
+    text-align:center;
+    margin:40px 0 20px;
+    font-size:32px;
+    color:#111827;
+    position:relative;
+}
+
+h2::after{
+    content:"";
+    width:80px;
+    height:4px;
+    background:#2563eb;
+    display:block;
+    margin:10px auto 0;
+    border-radius:10px;
+}
+
+/* TABLE STYLE */
+
+
+table{
+    width:90%;
+    margin:0 auto 60px;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Header Table */
+table th{
+    background:#2563eb;
+    color:#fff;
+    padding:15px;
+    font-size:15px;
+    text-transform:uppercase;
+}
+
+/* Isi Table */
+table td{
+    padding:14px;
+    text-align:center;
+    color:#374151;
+    border-bottom:1px solid #e5e7eb;
+}
+
+/* Hover Row */
+table tr:hover{
+    background:#f0f6ff;
+    transition:0.3s;
+}
+
+/* ==============================
+   BUTTON HAPUS
+============================== */
+
+a{
+    text-decoration:none;
+}
+
+/* Link Hapus */
+a[href*="delete"]{
+    background:#ef4444;
+    color:#fff;
+    padding:7px 14px;
+    border-radius:8px;
+    font-size:13px;
+    transition:0.3s;
+    display:inline-block;
+}
+
+a[href*="delete"]:hover{
+    background:#dc2626;
+    transform:scale(1.05);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media(max-width:768px){
+
+    table{
+        width:100%;
+        font-size:13px;
+    }
+
+    h2{
+        font-size:24px;
+    }
+}
+
+/* ==============================
+   KELOLA LOWONGAN ADMIN
+============================== */
+
+h2{
+    text-align:center;
+    margin:40px 0 20px;
+    font-size:32px;
+    color:#111827;
+    position:relative;
+}
+
+h2::after{
+    content:"";
+    width:80px;
+    height:4px;
+    background:#2563eb;
+    display:block;
+    margin:10px auto 0;
+    border-radius:10px;
+}
+
+table{
+    width:92%;
+    margin:0 auto 60px;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+table th{
+    background:#2563eb;
+    color:#fff;
+    padding:15px;
+    font-size:14px;
+}
+
+table td{
+    padding:14px;
+    text-align:center;
+    color:#374151;
+    border-bottom:1px solid #e5e7eb;
+}
+
+table tr:hover{
+    background:#f0f6ff;
+    transition:0.3s;
+}
+
+a[href*="delete"]{
+    background:#ef4444;
+    color:#fff;
+    padding:7px 14px;
+    border-radius:8px;
+    font-size:13px;
+    transition:0.3s;
+    display:inline-block;
+}
+
+a[href*="delete"]:hover{
+    background:#dc2626;
+    transform:scale(1.05);
+}
+
+/* ==============================
+   KELOLA USERS ADMIN
+============================== */
+
+h2{
+    text-align:center;
+    margin:40px 0 20px;
+    font-size:32px;
+    color:#111827;
+    position:relative;
+}
+
+h2::after{
+    content:"";
+    width:80px;
+    height:4px;
+    background:#2563eb;
+    display:block;
+    margin:10px auto 0;
+    border-radius:10px;
+}
+
+table{
+    width:85%;
+    margin:0 auto 60px;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+table th{
+    background:#2563eb;
+    color:#fff;
+    padding:15px;
+    font-size:14px;
+}
+
+table td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #e5e7eb;
+    color:#374151;
+}
+
+table tr:hover{
+    background:#f0f6ff;
+}
+
+a[href*="delete"]{
+    background:#ef4444;
+    color:#fff;
+    padding:7px 14px;
+    border-radius:8px;
+    font-size:13px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+a[href*="delete"]:hover{
+    background:#dc2626;
+    transform:scale(1.05);
+}
+
+/* kelola lamaran */
+
+h2{
+    text-align:center;
+    margin:40px 0 20px;
+    font-size:32px;
+    color:#111827;
+    position:relative;
+}
+
+h2::after{
+    content:"";
+    width:80px;
+    height:4px;
+    background:#2563eb;
+    display:block;
+    margin:10px auto 0;
+    border-radius:10px;
+}
+
+table{
+    width:90%;
+    margin:0 auto 60px;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+table th{
+    background:#2563eb;
+    color:#fff;
+    padding:15px;
+    font-size:14px;
+}
+
+table td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #e5e7eb;
+    color:#374151;
+}
+
+table tr:hover{
+    background:#f0f6ff;
+}
+
+a{
+    text-decoration:none;
+}
+
+a[href*="status"]{
+    color:#2563eb;
+    font-weight:600;
+}
+
+a[href*="delete"]{
+    background:#ef4444;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:8px;
+    font-size:12px;
+}
