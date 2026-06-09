@@ -89,4 +89,4 @@ class CreateLowonganTable extends Migration
     {
          $this->forge->dropTable('lowongan');
     }
-}
+} 

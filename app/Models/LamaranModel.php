@@ -7,17 +7,19 @@ use CodeIgniter\Model;
 class LamaranModel extends Model
 {
     protected $table = 'lamaran';
-    protected $primaryKey = 'lamaran_id';
+    protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
     protected $protectFields= true;
     protected $allowedFields = [
-        'pencari_kerja_id',
+        'pencari_id',
+        'cv_file',
+        'surat_lamaran',
         'lowongan_id',
-        'tanggal_lamaran',
+        'tanggal_lamar',
         'status',
-        'catatan'
+    
     ];
 
     protected $useTimestamps = true;
