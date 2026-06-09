@@ -9,12 +9,21 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('pages/home');
+        return view('pagesI/home');
     }
 
     public function login()
     {
+<<<<<<< HEAD
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
+
+        return view('auth/login');
+=======
         return view('pages/auth/login');
+>>>>>>> luppy
     }
 
     public function processLogin()
@@ -39,6 +48,30 @@ class Home extends BaseController
             'logged_in' => true,
         ]);
 
+<<<<<<< HEAD
+        return $this->redirectByRole($user['role']);
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/login')
+            ->with('success', 'Kamu berhasil keluar');
+    }
+
+    // =====================
+    // REGISTER PENCARI KERJA
+    // =====================
+
+    public function register()
+    {
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
+
+        return view('auth/register');
+=======
         // Arahkan sesuai role
         if ($user['role'] === 'admin') {
             return redirect()->to('/dashboard-admin');
@@ -52,6 +85,7 @@ class Home extends BaseController
     public function register()
     {
         return view('pages/auth/register');
+>>>>>>> luppy
     }
 
     public function processRegister()
@@ -73,7 +107,14 @@ class Home extends BaseController
         $userModel->save([
             'nama'     => $this->request->getPost('nama'),
             'email'    => $this->request->getPost('email'),
+<<<<<<< HEAD
+            'password' => password_hash(
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
+=======
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+>>>>>>> luppy
             'role'     => 'pencari_kerja',
         ]);
 
@@ -83,7 +124,16 @@ class Home extends BaseController
 
     public function register_perusahaan()
     {
+<<<<<<< HEAD
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
+
+        return view('auth/register_perusahaan');
+=======
         return view('pages/auth/register_perusahaan');
+>>>>>>> luppy
     }
 
     public function processRegisterPerusahaan()
@@ -92,12 +142,21 @@ class Home extends BaseController
         $perusahaanModel = new PerusahaanModel();
 
         $rules = [
+<<<<<<< HEAD
+            'nama_umkm'    => 'required|min_length[3]',
+            'email'        => 'required|valid_email|is_unique[users.email]',
+            'bidang_usaha' => 'required',
+            'alamat'       => 'required',
+            'telepon'      => 'required',
+            'password'     => 'required|min_length[6]',
+=======
             'nama_umkm'   => 'required',
             'email'       => 'required|valid_email|is_unique[users.email]',
             'bidang_usaha'=> 'required',
             'alamat'      => 'required',
             'telepon'     => 'required',
             'password'    => 'required|min_length[6]',
+>>>>>>> luppy
         ];
 
         if (!$this->validate($rules)) {
@@ -110,7 +169,14 @@ class Home extends BaseController
         $userModel->save([
             'nama'     => $this->request->getPost('nama_umkm'),
             'email'    => $this->request->getPost('email'),
+<<<<<<< HEAD
+            'password' => password_hash(
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
+=======
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+>>>>>>> luppy
             'role'     => 'perusahaan',
         ]);
 
@@ -136,6 +202,28 @@ class Home extends BaseController
         return redirect()->to('/login');
     }
 
+<<<<<<< HEAD
+    public function updateProfil()
+    {
+        // akan diisi nanti
+    }
+
+    // =====================
+    // HELPER PRIVATE
+    // =====================
+
+    private function redirectByRole(string $role)
+    {
+        switch ($role) {
+            case 'admin':
+                return redirect()->to('/dashboard-admin');
+            case 'perusahaan':
+                return redirect()->to('/dashboard-perusahaan');
+            default:
+                return redirect()->to('/dashboard-pencari');
+        }
+    }
+=======
     // Halaman-halaman view biasa
     public function dashboard_pencari()  { return view('pages/dashboard_pencari'); }
     public function dashboard_perusahaan() { return view('pages/dashboard_perusahaan'); }
@@ -148,4 +236,5 @@ class Home extends BaseController
 
     public function processApply()   { /* nanti */ }
     public function updateProfil()   { /* nanti */ }
+>>>>>>> luppy
 }
