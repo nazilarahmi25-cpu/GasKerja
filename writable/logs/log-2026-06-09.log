@@ -1,0 +1,209 @@
+<<<<<<< HEAD
+CRITICAL - 2026-06-09 07:20:35 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "halaman_register.php"
+[Method: GET, Route: register]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('halaman_register.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('halaman_register', [], true)
+ 3 APPPATH\Controllers\Home.php(110): view('halaman_register')
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->register()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xamppp\\htdocs\\poryek_GasKerja\\public\\index.php')
+CRITICAL - 2026-06-09 07:21:05 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "halaman_register.php"
+[Method: GET, Route: register]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('halaman_register.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('halaman_register', [], true)
+ 3 APPPATH\Controllers\Home.php(110): view('halaman_register')
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->register()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xamppp\\htdocs\\poryek_GasKerja\\public\\index.php')
+CRITICAL - 2026-06-09 07:21:12 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "halaman_register.php"
+[Method: GET, Route: register]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('halaman_register.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('halaman_register', [], true)
+ 3 APPPATH\Controllers\Home.php(110): view('halaman_register')
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->register()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xamppp\\htdocs\\poryek_GasKerja\\public\\index.php')
+=======
+DEBUG - 2026-06-09 06:31:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:31:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:31:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-06-09 06:32:42 --> Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (:nama:, :email:, :password:, :role:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Home.php(183): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+11 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+CRITICAL - 2026-06-09 06:32:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+[Method: POST, Route: register-perusahaan]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (:nama:, :email:, :password:, :role:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Home.php(183): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+CRITICAL - 2026-06-09 06:32:42 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (:nama:, :email:, :password:, :role:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Home.php(183): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+CRITICAL - 2026-06-09 06:32:42 --> [Caused by] mysqli_sql_exception: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (\'dfbng\', \'srhfgm@gmail.com\', \'$2y$10$5pV53bZ4OXi77SvixB62HubpHXMMujQpT04A0nu4O3rEUsk2mJvp6\', \'perusahaan\', \'2026-06-09 06:32:42\', \'2026-06-09 06:32:42\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`nama`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES (:nama:, :email:, :password:, :role:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Home.php(183): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+11 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+DEBUG - 2026-06-09 06:50:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:50:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:50:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-06-09 06:51:14 --> Unknown column 'nama_perusahaan' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (:nama_perusahaan:, :alamat:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Home.php(196): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+11 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+CRITICAL - 2026-06-09 06:51:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'nama_perusahaan' in 'field list'
+[Method: POST, Route: register-perusahaan]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (:nama_perusahaan:, :alamat:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 5 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 6 APPPATH\Controllers\Home.php(196): CodeIgniter\BaseModel->save([...])
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+CRITICAL - 2026-06-09 06:51:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'nama_perusahaan' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (:nama_perusahaan:, :alamat:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 7 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 8 APPPATH\Controllers\Home.php(196): CodeIgniter\BaseModel->save([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+CRITICAL - 2026-06-09 06:51:14 --> [Caused by] mysqli_sql_exception: Unknown column 'nama_perusahaan' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (\'sdvgfn\', \'dhtrjsrj\', \'2026-06-09 06:51:14\', \'2026-06-09 06:51:14\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `perusahaan` (`nama_perusahaan`, `alamat`, `created_at`, `updated_at`) VALUES (:nama_perusahaan:, :alamat:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], false)
+ 8 SYSTEMPATH\BaseModel.php(752): CodeIgniter\Model->insert([...], false)
+ 9 APPPATH\Controllers\Home.php(196): CodeIgniter\BaseModel->save([...])
+10 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->processRegisterPerusahaan()
+11 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+12 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+DEBUG - 2026-06-09 06:57:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:57:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:58:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:58:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 06:58:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+>>>>>>> ca74a951bdd41c767a276d18f7758cf12a4fcedc
+CRITICAL - 2026-06-09 09:38:14 --> ParseError: syntax error, unexpected token "<<", expecting "function" or "const"
+[Method: GET, Route: /]
+in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\app\\Controllers\\Home.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Home')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Home')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\Home')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('A:\\myrealxampp\\htdocs\\GasKerjaBaru\\public\\index.php')
+DEBUG - 2026-06-09 10:04:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 10:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-09 10:17:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

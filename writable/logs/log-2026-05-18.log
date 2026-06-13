@@ -1,0 +1,125 @@
+ERROR - 2026-05-18 13:36:10 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto`...' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMENSTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMENSTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMENSTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMENSTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 5 APPPATH\Database\Migrations\2026-05-17-044547_CreateUserTable.php(51): CodeIgniter\Database\Forge->createTable('users')
+ 6 SYSTEMPATH\Database\MigrationRunner.php(1014): App\Database\Migrations\CreateUserTable->up()
+ 7 SYSTEMPATH\Database\MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+ 8 SYSTEMPATH\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(null)
+ 9 SYSTEMPATH\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+10 SYSTEMPATH\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2026-05-18 13:42:26 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto`...' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `users` (
+	`id` INT(11) UNSIGNED NOT NULL,
+	`nama` VARCHAR(100) NOT NULL,
+	`email` VARCHAR NOT NULL UNIQUE,
+	`password` VARCHAR NOT NULL,
+	`role` ENUM NOT NULL,
+	`foto` VARCHAR(255) NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_users` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 5 APPPATH\Database\Migrations\2026-05-17-044547_CreateUserTable.php(51): CodeIgniter\Database\Forge->createTable('users')
+ 6 SYSTEMPATH\Database\MigrationRunner.php(1014): App\Database\Migrations\CreateUserTable->up()
+ 7 SYSTEMPATH\Database\MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+ 8 SYSTEMPATH\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(null)
+ 9 SYSTEMPATH\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+10 SYSTEMPATH\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-05-18 13:58:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "landing_page.php"
+[Method: GET, Route: /]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('landing_page.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('landing_page', [], true)
+ 3 APPPATH\Controllers\Home.php(9): view('landing_page')
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Home->index()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp8.2\\htdocs\\proyek_GasKerja\\public\\index.php')

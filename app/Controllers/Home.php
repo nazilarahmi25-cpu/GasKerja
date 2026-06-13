@@ -1,161 +1,238 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\PerusahaanModel;
-use App\Models\LowonganModel;
-use App\Models\LamaranModel;
 
-class Admin extends BaseController
+class Home extends BaseController
 {
-    protected $userModel;
-    protected $perusahaanModel;
-    protected $lowonganModel;
-    protected $lamaranModel;
+    // =====================
+    // HALAMAN STATIS
+    // =====================
 
-    public function __construct()
+    public function index()
     {
-        $this->userModel       = new UserModel();
-        $this->perusahaanModel = new PerusahaanModel();
-        $this->lowonganModel   = new LowonganModel();
-        $this->lamaranModel    = new LamaranModel();
+        return view('landing_page');
+    }
+
+    public function about_us()
+    {
+        return view('about_us');
+    }
+
+    public function notifikasi()
+    {
+        return view('notifikasi');
+    }
+
+    public function profil()
+    {
+        return view('profil');
+    }
+
+    public function detail_lowongan()
+    {
+        return view('detail_lowongan');
+    }
+
+    public function apply_lowongan()
+    {
+        return view('apply_lowongan');
+    }
+
+    public function dashboard_pencari()
+    {
+        return view('dashboard_pencari');
+    }
+
+    public function dashboard_perusahaan()
+    {
+        return view('dashboard_perusahaan');
+    }
+
+    public function dashboard_admin()
+    {
+        return view('dashboard_admin');
     }
 
     // =====================
-    // CEK AKSES ADMIN
+    // LOGIN
     // =====================
 
-    private function cekAdmin()
+    public function login()
     {
-        if (!session()->get('logged_in') || session()->get('role') !== 'admin') {
-            return redirect()->to('/login');
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
         }
-        return null;
+
+        return view('auth/login');
+    }
+
+    public function processLogin()
+    {
+        $userModel = new UserModel();
+        $email     = $this->request->getPost('email');
+        $password  = $this->request->getPost('password');
+
+        $user = $userModel->where('email', $email)->first();
+
+        if (!$user || !password_verify($password, $user['password'])) {
+            return redirect()->to('/login')
+                ->with('error', 'Email atau password salah');
+        }
+
+        session()->set([
+            'user_id'   => $user['id'],
+            'nama'      => $user['nama'],
+            'email'     => $user['email'],
+            'role'      => $user['role'],
+            'logged_in' => true,
+        ]);
+
+        return $this->redirectByRole($user['role']);
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/login')
+            ->with('success', 'Kamu berhasil keluar');
     }
 
     // =====================
-    // DASHBOARD
+    // REGISTER PENCARI KERJA
     // =====================
 
-    public function dashboard()
+    public function register()
     {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
 
-        $data = [
-            'totalUser'       => $this->userModel->where('role', 'pencari_kerja')->countAllResults(),
-            'totalPerusahaan' => $this->perusahaanModel->countAllResults(),
-            'totalLowongan'   => $this->lowonganModel->countAllResults(),
-            'totalLamaran'    => $this->lamaranModel->countAllResults(),
-            'pending'         => $this->lamaranModel->where('status', 'diproses')->countAllResults(),
-            'diterima'        => $this->lamaranModel->where('status', 'diterima')->countAllResults(),
-            'ditolak'         => $this->lamaranModel->where('status', 'ditolak')->countAllResults(),
+        return view('auth/register');
+    }
+
+    public function processRegister()
+    {
+        $userModel = new UserModel();
+
+        $rules = [
+            'nama'     => 'required|min_length[3]',
+            'email'    => 'required|valid_email|is_unique[users.email]',
+            'password' => 'required|min_length[6]',
         ];
 
-        return view('dashboard_admin', $data);
-    }
-
-    // =====================
-    // KELOLA PENGGUNA
-    // =====================
-
-    public function kelolaUser()
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $data['users'] = $this->userModel
-            ->where('role', 'pencari_kerja')
-            ->findAll();
-
-        return view('admin/kelola_user', $data);
-    }
-
-    public function hapusUser($id)
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $this->userModel->delete($id);
-        return redirect()->to('/admin/users')
-            ->with('success', 'Pengguna berhasil dihapus');
-    }
-
-    // =====================
-    // KELOLA PERUSAHAAN
-    // =====================
-
-    public function kelolaPerusahaan()
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $data['perusahaan'] = $this->perusahaanModel->findAll();
-        return view('admin/kelola_perusahaan', $data);
-    }
-
-    public function hapusPerusahaan($id)
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $this->perusahaanModel->delete($id);
-        return redirect()->to('/admin/perusahaan')
-            ->with('success', 'Perusahaan berhasil dihapus');
-    }
-
-    // =====================
-    // KELOLA LOWONGAN
-    // =====================
-
-    public function kelolaLowongan()
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $data['lowongan'] = $this->lowonganModel->findAll();
-        return view('admin/kelola_lowongan', $data);
-    }
-
-    public function hapusLowongan($id)
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $this->lowonganModel->delete($id);
-        return redirect()->to('/admin/lowongan')
-            ->with('success', 'Lowongan berhasil dihapus');
-    }
-
-    // =====================
-    // KELOLA LAMARAN
-    // =====================
-
-    public function kelolaLamaran()
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $data['lamaran'] = $this->lamaranModel->findAll();
-        return view('admin/kelola_lamaran', $data);
-    }
-
-    public function updateStatusLamaran($id)
-    {
-        $redirect = $this->cekAdmin();
-        if ($redirect) return $redirect;
-
-        $status = $this->request->getPost('status');
-
-        // Validasi status sesuai ENUM di migration
-        $validStatus = ['diproses', 'diterima', 'ditolak'];
-        if (!in_array($status, $validStatus)) {
-            return redirect()->to('/admin/lamaran')
-                ->with('error', 'Status tidak valid');
+        if (!$this->validate($rules)) {
+            return redirect()->to('/register')
+                ->with('errors', $this->validator->getErrors())
+                ->withInput();
         }
 
-        $this->lamaranModel->update($id, ['status' => $status]);
-        return redirect()->to('/admin/lamaran')
-            ->with('success', 'Status lamaran diperbarui');
+        $userModel->save([
+            'nama'     => $this->request->getPost('nama'),
+            'email'    => $this->request->getPost('email'),
+            'password' => password_hash(
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
+            'role'     => 'pencari_kerja',
+        ]);
+
+        return redirect()->to('/login')
+            ->with('success', 'Registrasi berhasil, silakan login');
+    }
+
+    // =====================
+    // REGISTER PERUSAHAAN
+    // =====================
+
+    public function register_perusahaan()
+    {
+        // Jika sudah login, redirect sesuai role
+        if (session()->get('logged_in')) {
+            return $this->redirectByRole(session()->get('role'));
+        }
+
+        return view('auth/register_perusahaan');
+    }
+
+    public function processRegisterPerusahaan()
+    {
+        $userModel       = new UserModel();
+        $perusahaanModel = new PerusahaanModel();
+
+        $rules = [
+            'nama_umkm'    => 'required|min_length[3]',
+            'email'        => 'required|valid_email|is_unique[users.email]',
+            'bidang_usaha' => 'required',
+            'alamat'       => 'required',
+            'telepon'      => 'required',
+            'password'     => 'required|min_length[6]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to('/register-perusahaan')
+                ->with('errors', $this->validator->getErrors())
+                ->withInput();
+        }
+
+        // Simpan ke tabel users
+        $userModel->save([
+            'nama'     => $this->request->getPost('nama_umkm'),
+            'email'    => $this->request->getPost('email'),
+            'password' => password_hash(
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
+            'role'     => 'perusahaan',
+        ]);
+
+        $userId = $userModel->getInsertID();
+
+        // Simpan ke tabel perusahaan
+        $perusahaanModel->save([
+            'user_id'         => $userId,
+            'nama_perusahaan' => $this->request->getPost('nama_umkm'),
+            'nama_umkm'       => $this->request->getPost('nama_umkm'),
+            'bidang_usaha'    => $this->request->getPost('bidang_usaha'),
+            'alamat'          => $this->request->getPost('alamat'),
+            'telepon'         => $this->request->getPost('telepon'),
+        ]);
+
+        return redirect()->to('/login')
+            ->with('success', 'Registrasi perusahaan berhasil, silakan login');
+    }
+
+    // =====================
+    // APPLY LOWONGAN
+    // =====================
+
+    public function processApply()
+    {
+        // akan diisi nanti
+    }
+
+    public function updateProfil()
+    {
+        // akan diisi nanti
+    }
+
+    // =====================
+    // HELPER PRIVATE
+    // =====================
+
+    private function redirectByRole(string $role)
+    {
+        switch ($role) {
+            case 'admin':
+                return redirect()->to('/dashboard-admin');
+            case 'perusahaan':
+                return redirect()->to('/dashboard-perusahaan');
+            default:
+                return redirect()->to('/dashboard-pencari');
+        }
     }
 }
