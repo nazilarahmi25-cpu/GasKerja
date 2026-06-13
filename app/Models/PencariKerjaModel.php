@@ -7,18 +7,19 @@ use CodeIgniter\Model;
 class PencariKerjaModel extends Model
 {
     protected $table = 'pencari_kerja';
-    protected $primaryKey = 'pencari_kerja_id';
+    protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
-    protected $protectFields= true;
+    protected $protectFields = true;
+
     protected $allowedFields = [
-        'pencari_kerja_id',
-        'no_hp',
+        'user_id',
         'alamat',
-        'cv_path',
-        'portofolio_path',
-        'bio'
+        'no_hp',
+        'pendidikan',
+        'skill',
+        'cv'
     ];
 
     protected $useTimestamps = true;
@@ -26,5 +27,4 @@ class PencariKerjaModel extends Model
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
     protected $deletedField = 'deleted_at';
-
 }

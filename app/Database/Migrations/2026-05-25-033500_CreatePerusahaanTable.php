@@ -8,7 +8,7 @@ class CreatePerusahaanTable extends Migration
 {
     public function up()
     {
-    $this->forge->addField([
+        $this->forge->addField([
             'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
@@ -16,7 +16,7 @@ class CreatePerusahaanTable extends Migration
                 'auto_increment' => true,
             ],
 
-            'nama' => [
+            'nama_perusahaan' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
             ],
@@ -27,6 +27,11 @@ class CreatePerusahaanTable extends Migration
                 'unique' => true,
             ],
 
+            'alamat' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
@@ -34,7 +39,7 @@ class CreatePerusahaanTable extends Migration
 
             'role' => [
                 'type' => 'ENUM',
-                'constraint' => ['admin', 'perusahaan', 'pencari_kerja'] 
+                'constraint' => ['admin', 'perusahaan', 'pencari_kerja'],
             ],
 
             'foto' => [
@@ -42,15 +47,17 @@ class CreatePerusahaanTable extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
-            
-           'created_at' => [
+
+            'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
+
             'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
+
             'deleted_at' => [
                 'type' => 'DATETIME',
                 'null' => true,

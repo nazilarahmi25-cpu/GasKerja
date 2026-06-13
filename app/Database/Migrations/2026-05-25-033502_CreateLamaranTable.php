@@ -74,6 +74,14 @@ class CreateLamaranTable extends Migration
     
         );
 
+        $this->forge->addForeignKey(
+             'pencari_id',
+             'pencari_kerja',
+             'id',
+             'CASCADE',
+             'CASCADE'
+        );
+
         $this->forge->createTable('lamaran');
     }
 

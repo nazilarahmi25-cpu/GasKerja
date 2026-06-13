@@ -7,18 +7,15 @@ use CodeIgniter\Model;
 class NotifikasiModel extends Model
 {
     protected $table = 'notifikasi';
-    protected $primaryKey = 'notifikasi_id';
+    protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
     protected $protectFields= true;
     protected $allowedFields = [
-        'user_id',
-        'judul',
-        'pesan',
-        'is_read',
-        'referensi_tipe',
-        'referensi_id'
+         'user_id',
+         'pesan',
+         'status_baca'
     ];
 
     protected $useTimestamps = true;
