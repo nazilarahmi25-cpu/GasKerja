@@ -7,24 +7,25 @@ use CodeIgniter\Model;
 class PerusahaanModel extends Model
 {
     protected $table = 'perusahaan';
-    protected $primaryKey = 'perusahaan_id';
+    protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
-    protected $protectFields= true;
+    protected $protectFields = true;
+
     protected $allowedFields = [
-        'perusahaan_id',
         'nama_perusahaan',
+        'email',
         'alamat',
-        'deskripsi',
-        'logo_path',
-        'website'
+        'password',
+        'role',
+        'foto'
     ];
 
     protected $useTimestamps = true;
     protected $dateFormat = 'datetime';
+
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
     protected $deletedField = 'deleted_at';
-
 }
