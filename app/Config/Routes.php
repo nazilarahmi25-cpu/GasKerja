@@ -6,39 +6,122 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+/*
+|--------------------------------------------------------------------------
+| PUBLIC
+|--------------------------------------------------------------------------
+*/
+
 $routes->get('/', 'Home::index');
+$routes->get('about-us', 'Home::about_us');
 
-$routes->get('/about-us', 'Home::about_us');
+$routes->get('detail-lowongan', 'Home::detail_lowongan');
+$routes->get('apply-lowongan', 'Home::apply_lowongan');
 
-$routes->get('/login', 'Home::login');
-$routes->post('/login', 'Home::processLogin');
+$routes->get('profil', 'Home::profil');
+$routes->get('notifikasi', 'Home::notifikasi');
 
-$routes->get('/register', 'Home::register');
-$routes->post('/register', 'Home::processRegister');
 
-$routes->get('/register-perusahaan', 'Home::register_perusahaan');
-$routes->post('/register-perusahaan', 'Home::processRegisterPerusahaan');
+/*
+|--------------------------------------------------------------------------
+| AUTH
+|--------------------------------------------------------------------------
+*/
 
-$routes->get('/dashboard-pencari', 'Home::dashboard_pencari');
+$routes->get('login', 'Home::login');
+$routes->post('login', 'Home::processLogin');
 
-$routes->get('/dashboard-perusahaan', 'Home::dashboard_perusahaan');
+$routes->get('logout', 'Home::logout');
 
-$routes->get('/dashboard-admin', 'Home::dashboard_admin');
+$routes->get('register', 'Home::register');
+$routes->post('register', 'Home::processRegister');
 
-$routes->get('/detail-lowongan', 'Home::detail_lowongan');
+$routes->get('register-perusahaan', 'Home::register_perusahaan');
+$routes->post('register-perusahaan', 'Home::processRegisterPerusahaan');
 
-$routes->get('/apply-lowongan', 'Home::apply_lowongan');
-$routes->post('/apply-lowongan', 'Home::processApply');
 
-$routes->get('/profil', 'Home::profil');
-$routes->post('/profil', 'Home::updateProfil');
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD
+|--------------------------------------------------------------------------
+*/
 
-$routes->get('/notifikasi', 'Home::notifikasi');
+$routes->get('dashboard-pencari', 'Home::dashboard_pencari');
+$routes->get('dashboard-perusahaan', 'Home::dashboard_perusahaan');
+$routes->get('dashboard-admin', 'Home::dashboard_admin');
 
-// ✅ TAMBAHKAN INI — CRUD Lowongan
-$routes->get('/lowongan', 'LowonganController::index');
-$routes->get('/lowongan/create', 'LowonganController::create');
-$routes->post('/lowongan/store', 'LowonganController::store');
-$routes->get('/lowongan/edit/(:num)', 'LowonganController::edit/$1');
-$routes->post('/lowongan/update/(:num)', 'LowonganController::update/$1');
-$routes->get('/lowongan/delete/(:num)', 'LowonganController::delete/$1');
+
+/*
+|--------------------------------------------------------------------------
+| PROFIL
+|--------------------------------------------------------------------------
+*/
+
+$routes->post('profil/update', 'Home::updateProfil');
+
+
+/*
+|--------------------------------------------------------------------------
+| LAMARAN
+|--------------------------------------------------------------------------
+*/
+
+$routes->post('apply-lowongan', 'Home::processApply');
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN
+|--------------------------------------------------------------------------
+*/
+
+$routes->get('admin/pengguna', 'AdminController::pengguna');
+$routes->get('admin/pengguna/hapus/(:num)', 'AdminController::hapusPengguna/$1');
+
+$routes->get('admin/perusahaan', 'AdminController::perusahaan');
+$routes->get('admin/perusahaan/hapus/(:num)', 'AdminController::hapusPerusahaan/$1');
+
+$routes->get('admin/lowongan', 'AdminController::lowongan');
+$routes->get('admin/lowongan/tambah', 'AdminController::tambahLowongan');
+$routes->post('admin/lowongan/simpan', 'AdminController::simpanLowongan');
+
+$routes->get('admin/lowongan/edit/(:num)', 'AdminController::editLowongan/$1');
+$routes->post('admin/lowongan/update/(:num)', 'AdminController::updateLowongan/$1');
+
+$routes->get('admin/lowongan/hapus/(:num)', 'AdminController::hapusLowongan/$1');
+
+$routes->get('admin/lamaran', 'AdminController::lamaran');
+$routes->get('admin/lamaran/status/(:num)/(:alpha)', 'AdminController::updateStatusLamaran/$1/$2');
+$routes->get('admin/lamaran/hapus/(:num)', 'AdminController::hapusLamaran/$1');
+
+
+/*
+|--------------------------------------------------------------------------
+| PERUSAHAAN
+|--------------------------------------------------------------------------
+*/
+
+$routes->get('perusahaan/lowongan', 'PerusahaanController::lowongan');
+
+$routes->get('perusahaan/tambah-lowongan', 'PerusahaanController::tambah');
+$routes->post('perusahaan/simpan-lowongan', 'PerusahaanController::simpan');
+
+$routes->get('perusahaan/edit-lowongan/(:num)', 'PerusahaanController::edit/$1');
+$routes->post('perusahaan/update-lowongan/(:num)', 'PerusahaanController::update/$1');
+
+$routes->get('perusahaan/hapus-lowongan/(:num)', 'PerusahaanController::hapus/$1');
+
+$routes->get('perusahaan/pelamar/(:num)', 'PerusahaanController::pelamar/$1');
+
+
+/*
+|--------------------------------------------------------------------------
+| API CRUD LOWONGAN (AJAX)
+|--------------------------------------------------------------------------
+*/
+
+$routes->get('lowongan', 'LowonganController::index');
+$routes->post('lowongan/store', 'LowonganController::store');
+$routes->get('lowongan/edit/(:num)', 'LowonganController::edit/$1');
+$routes->post('lowongan/update/(:num)', 'LowonganController::update/$1');
+$routes->delete('lowongan/delete/(:num)', 'LowonganController::delete/$1');

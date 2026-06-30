@@ -7,10 +7,6 @@ use App\Models\PerusahaanModel;
 
 class Home extends BaseController
 {
-    // =====================
-    // HALAMAN STATIS
-    // =====================
-
     public function index()
     {
         return view('landing_page');
@@ -28,7 +24,17 @@ class Home extends BaseController
 
     public function profil()
     {
-        return view('profil');
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        $userModel = new UserModel();
+
+        $data['user'] = $userModel->find(
+            session()->get('user_id')
+        );
+
+        return view('profil', $data);
     }
 
     public function detail_lowongan()
@@ -38,33 +44,46 @@ class Home extends BaseController
 
     public function apply_lowongan()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
         return view('apply_lowongan');
     }
 
     public function dashboard_pencari()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
         return view('dashboard_pencari');
     }
 
     public function dashboard_perusahaan()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
         return view('dashboard_perusahaan');
     }
 
     public function dashboard_admin()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
         return view('dashboard_admin');
     }
 
-    // =====================
-    // LOGIN
-    // =====================
-
     public function login()
     {
-        // Jika sudah login, redirect sesuai role
         if (session()->get('logged_in')) {
-            return $this->redirectByRole(session()->get('role'));
+            return $this->redirectByRole(
+                session()->get('role')
+            );
         }
 
         return view('auth/login');
@@ -73,14 +92,22 @@ class Home extends BaseController
     public function processLogin()
     {
         $userModel = new UserModel();
-        $email     = $this->request->getPost('email');
-        $password  = $this->request->getPost('password');
 
-        $user = $userModel->where('email', $email)->first();
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
 
-        if (!$user || !password_verify($password, $user['password'])) {
-            return redirect()->to('/login')
-                ->with('error', 'Email atau password salah');
+        $user = $userModel
+            ->where('email', $email)
+            ->first();
+
+        if (!$user) {
+            return redirect()->back()
+                ->with('error', 'Password salah ');
+        }
+
+        if (!password_verify($password, $user['password'])) {
+            return redirect()->back()
+                ->with('error', 'Password salah');
         }
 
         session()->set([
@@ -88,30 +115,24 @@ class Home extends BaseController
             'nama'      => $user['nama'],
             'email'     => $user['email'],
             'role'      => $user['role'],
-            'logged_in' => true,
+            'logged_in' => true
         ]);
 
-        return $this->redirectByRole($user['role']);
+        return $this->redirectByRole(
+            $user['role']
+        );
     }
 
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/login')
-            ->with('success', 'Kamu berhasil keluar');
-    }
 
-    // =====================
-    // REGISTER PENCARI KERJA
-    // =====================
+        return redirect()->to('/login')
+            ->with('success', 'Berhasil logout');
+    }
 
     public function register()
     {
-        // Jika sudah login, redirect sesuai role
-        if (session()->get('logged_in')) {
-            return $this->redirectByRole(session()->get('role'));
-        }
-
         return view('auth/register');
     }
 
@@ -126,9 +147,9 @@ class Home extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to('/register')
-                ->with('errors', $this->validator->getErrors())
-                ->withInput();
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
         }
 
         $userModel->save([
@@ -138,48 +159,51 @@ class Home extends BaseController
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
-            'role'     => 'pencari_kerja',
+            'role'     => 'pencari_kerja'
         ]);
 
         return redirect()->to('/login')
-            ->with('success', 'Registrasi berhasil, silakan login');
+            ->with('success', 'Registrasi berhasil');
     }
 
-    // =====================
-    // REGISTER PERUSAHAAN
-    // =====================
-
-    public function register_perusahaan()
+    public function Register_Perusahaan()
     {
-        // Jika sudah login, redirect sesuai role
-        if (session()->get('logged_in')) {
-            return $this->redirectByRole(session()->get('role'));
-        }
+    $userModel = new UserModel();
 
-        return view('auth/register_perusahaan');
+    $rules = [
+        'nama_umkm'    => 'required|min_length[3]',
+        'email'        => 'required|valid_email|is_unique[users.email]',
+        'bidang_usaha' => 'required',
+        'alamat'       => 'required',
+        'telepon'      => 'required',
+        'password'     => 'required|min_length[6]',
+    ];
+
+    if (!$this->validate($rules)) {
+        return redirect()->to('/register-perusahaan')
+            ->with('errors', $this->validator->getErrors())
+            ->withInput();
+    }
+
+    // Baru simpan kalau validasi lolos
+    $userModel->save([
+        'nama'     => $this->request->getPost('nama_umkm'),
+        'email'    => $this->request->getPost('email'),
+        'password' => password_hash(
+            $this->request->getPost('password'),
+            PASSWORD_DEFAULT
+        ),
+        'role' => 'perusahaan',
+    ]);
+
+    return redirect()->to('/login')
+        ->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
     public function processRegisterPerusahaan()
     {
-        $userModel       = new UserModel();
-        $perusahaanModel = new PerusahaanModel();
+        $userModel = new UserModel();
 
-        $rules = [
-            'nama_umkm'    => 'required|min_length[3]',
-            'email'        => 'required|valid_email|is_unique[users.email]',
-            'bidang_usaha' => 'required',
-            'alamat'       => 'required',
-            'telepon'      => 'required',
-            'password'     => 'required|min_length[6]',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->to('/register-perusahaan')
-                ->with('errors', $this->validator->getErrors())
-                ->withInput();
-        }
-
-        // Simpan ke tabel users
         $userModel->save([
             'nama'     => $this->request->getPost('nama_umkm'),
             'email'    => $this->request->getPost('email'),
@@ -187,50 +211,43 @@ class Home extends BaseController
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
-            'role'     => 'perusahaan',
-        ]);
-
-        $userId = $userModel->getInsertID();
-
-        // Simpan ke tabel perusahaan
-        $perusahaanModel->save([
-            'user_id'         => $userId,
-            'nama_perusahaan' => $this->request->getPost('nama_umkm'),
-            'nama_umkm'       => $this->request->getPost('nama_umkm'),
-            'bidang_usaha'    => $this->request->getPost('bidang_usaha'),
-            'alamat'          => $this->request->getPost('alamat'),
-            'telepon'         => $this->request->getPost('telepon'),
+            'role'     => 'perusahaan'
         ]);
 
         return redirect()->to('/login')
-            ->with('success', 'Registrasi perusahaan berhasil, silakan login');
+            ->with('success', 'Registrasi perusahaan berhasil');
     }
-
-    // =====================
-    // APPLY LOWONGAN
-    // =====================
 
     public function processApply()
     {
-        // akan diisi nanti
+        return redirect()->back()
+            ->with('success', 'Lamaran berhasil dikirim');
     }
 
     public function updateProfil()
     {
-        // akan diisi nanti
-    }
+        $userModel = new UserModel();
 
-    // =====================
-    // HELPER PRIVATE
-    // =====================
+        $userModel->update(
+            session()->get('user_id'),
+            [
+                'nama' => $this->request->getPost('nama')
+            ]
+        );
+
+        return redirect()->back()
+            ->with('success', 'Profil berhasil diperbarui');
+    }
 
     private function redirectByRole(string $role)
     {
         switch ($role) {
             case 'admin':
                 return redirect()->to('/dashboard-admin');
+
             case 'perusahaan':
                 return redirect()->to('/dashboard-perusahaan');
+
             default:
                 return redirect()->to('/dashboard-pencari');
         }

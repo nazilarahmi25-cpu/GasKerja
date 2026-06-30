@@ -16,13 +16,8 @@ use CodeIgniter\Filters\SecureHeaders;
 class Filters extends BaseFilters
 {
     /**
-     * Configures aliases for Filter classes to
-     * make reading things nicer and simpler.
-     *
-     * @var array<string, class-string|list<class-string>>
-     *
-     * [filter_name => classname]
-     * or [filter_name => [classname1, classname2, ...]]
+     * Daftar alias filter.
+     * 'auth' adalah alias untuk AuthFilter milik kita.
      */
     public array $aliases = [
         'csrf'          => CSRF::class,
@@ -34,77 +29,70 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+
+        // ✅ Filter buatan sendiri untuk proteksi halaman
+        'auth' => \App\Filters\AuthFilter::class,
     ];
 
     /**
-     * List of special required filters.
-     *
-     * The filters listed here are special. They are applied before and after
-     * other kinds of filters, and always applied even if a route does not exist.
-     *
-     * Filters set by default provide framework functionality. If removed,
-     * those functions will no longer work.
-     *
-     * @see https://codeigniter.com/user_guide/incoming/filters.html#provided-filters
-     *
-     * @var array{before: list<string>, after: list<string>}
+     * Filter wajib yang selalu berjalan di setiap request.
+     * Jangan ubah bagian ini.
      */
     public array $required = [
         'before' => [
-            'forcehttps', // Force Global Secure Requests
-            'pagecache',  // Web Page Caching
+            'forcehttps',
+            'pagecache',
         ],
         'after' => [
-            'pagecache',   // Web Page Caching
-            'performance', // Performance Metrics
-            'toolbar',     // Debug Toolbar
+            'pagecache',
+            'performance',
+            'toolbar',
         ],
     ];
 
     /**
-     * List of filter aliases that are always
-     * applied before and after every request.
-     *
-     * @var array{
-     *     before: array<string, array{except: list<string>|string}>|list<string>,
-     *     after: array<string, array{except: list<string>|string}>|list<string>
-     * }
+     * Filter global — dijalankan di SEMUA route.
+     * Kita tidak pasang 'auth' di sini supaya
+     * halaman publik (/, /login, /register) tetap bisa diakses.
      */
     public array $globals = [
         'before' => [
             // 'honeypot',
             // 'csrf',
-            // 'invalidchars',
         ],
         'after' => [
-            // 'honeypot',
             // 'secureheaders',
         ],
     ];
 
     /**
-     * List of filter aliases that works on a
-     * particular HTTP method (GET, POST, etc.).
-     *
-     * Example:
-     * 'POST' => ['foo', 'bar']
-     *
-     * If you use this, you should disable auto-routing because auto-routing
-     * permits any HTTP method to access a controller. Accessing the controller
-     * with a method you don't expect could bypass the filter.
-     *
-     * @var array<string, list<string>>
+     * Filter per HTTP method.
+     * Tidak dipakai di project ini.
      */
     public array $methods = [];
 
     /**
-     * List of filter aliases that should run on any
-     * before or after URI patterns.
+     * ✅ Filter per URI pattern.
      *
-     * Example:
-     * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+     * Semua halaman dashboard dan kelola wajib login.
+     * Format: 'alias' => ['before' => ['uri/pattern/*']]
      *
-     * @var array<string, array<string, list<string>>>
+     * Penjelasan pattern:
+     *  - 'dashboard-*'    → cocok dengan /dashboard-pencari, /dashboard-perusahaan, /dashboard-admin
+     *  - 'lowongan*'      → cocok dengan /lowongan, /lowongan/create, /lowongan/edit/1, dll
+     *  - 'profil'         → halaman profil user
+     *  - 'notifikasi'     → halaman notifikasi
      */
-    public array $filters = [];
+    public array $filters = [
+        'auth' => [
+            'before' => [
+                'dashboard-*',
+                'lowongan',
+                'lowongan/*',
+                'profil',
+                'notifikasi',
+                'logout',
+            ],
+        ],
+    ];
 }
