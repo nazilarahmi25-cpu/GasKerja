@@ -1,0 +1,47 @@
+ERROR - 2026-06-19 09:59:37 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'gaskerja', 3306, '', 0)
+#1 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 C:\xampp8.2\htdocs\proyek_GasKerja\system\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+#8 C:\xampp8.2\htdocs\proyek_GasKerja\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run(Array)
+#9 C:\xampp8.2\htdocs\proyek_GasKerja\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', Array)
+#10 C:\xampp8.2\htdocs\proyek_GasKerja\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#11 C:\xampp8.2\htdocs\proyek_GasKerja\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp8.2\htdocs\proyek_GasKerja\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#4 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 C:\xampp8.2\htdocs\proyek_GasKerja\system\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 C:\xampp8.2\htdocs\proyek_GasKerja\system\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+#7 C:\xampp8.2\htdocs\proyek_GasKerja\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run(Array)
+#8 C:\xampp8.2\htdocs\proyek_GasKerja\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', Array)
+#9 C:\xampp8.2\htdocs\proyek_GasKerja\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#10 C:\xampp8.2\htdocs\proyek_GasKerja\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp8.2\htdocs\proyek_GasKerja\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2026-06-19 09:59:37 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: CLI, Route: migrate:status]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FROM `gaskerja`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+ 4 SYSTEMPATH\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+ 5 SYSTEMPATH\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+ 6 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+ 7 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run([])
+ 8 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', [])
+ 9 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+10 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+11 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
