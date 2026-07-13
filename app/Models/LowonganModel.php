@@ -29,6 +29,21 @@ class LowonganModel extends Model
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
     protected $deletedField = 'deleted_at';
-    
 
+    // Data lowongan gabungan untuk tabel admin: Posisi Pekerjaan, Jam Kerja,
+    // Lokasi, Mitra Kerja (pola sama seperti LamaranModel::getAllDenganDetail)
+    public function getAllDenganPerusahaan()
+    {
+        return $this->select('
+                lowongan.id,
+                lowongan.judul AS posisi,
+                lowongan.tipe_kerja AS jam_kerja,
+                lowongan.lokasi,
+                perusahaan.nama_perusahaan AS mitra_kerja,
+                lowongan.status
+            ')
+            ->join('perusahaan', 'perusahaan.id = lowongan.perusahaan_id')
+            ->orderBy('lowongan.tanggal_post', 'DESC')
+            ->findAll();
+    }
 }
