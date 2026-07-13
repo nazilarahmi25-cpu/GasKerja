@@ -5,18 +5,21 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\LowonganModel;
 use App\Models\LamaranModel;
+use App\Models\PerusahaanModel;
 
 class AdminController extends BaseController
 {
     protected $userModel;
     protected $lowonganModel;
     protected $lamaranModel;
+    protected $perusahaanModel;
 
     public function __construct()
     {
-        $this->userModel     = new UserModel();
-        $this->lowonganModel = new LowonganModel();
-        $this->lamaranModel  = new LamaranModel();
+        $this->userModel       = new UserModel();
+        $this->lowonganModel   = new LowonganModel();
+        $this->lamaranModel    = new LamaranModel();
+        $this->perusahaanModel = new PerusahaanModel();
     }
 
     private function cekAdmin()
@@ -62,10 +65,9 @@ class AdminController extends BaseController
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
-        // Ambil semua user dengan role perusahaan
-        $data['perusahaan'] = $this->userModel
-            ->where('role', 'perusahaan')
-            ->findAll();
+        // Ambil dari tabel perusahaan (bukan users) supaya dapat data asli
+        // perusahaan (nama_perusahaan, alamat), JOIN ke users untuk email/pemilik
+        $data['perusahaan'] = $this->perusahaanModel->getAllDenganUser();
 
         return view('admin/perusahaan', $data);
     }
@@ -75,7 +77,16 @@ class AdminController extends BaseController
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
-        $this->userModel->delete($id);
+        // $id di sini adalah perusahaan.id. Hapus baris perusahaan DAN
+        // akun users terkait (soft delete keduanya) supaya akun tidak bisa
+        // login lagi — soft delete tidak memicu FK CASCADE, jadi harus
+        // dihapus manual dari kedua tabel.
+        $perusahaan = $this->perusahaanModel->find($id);
+        if ($perusahaan) {
+            $this->userModel->delete($perusahaan['user_id']);
+            $this->perusahaanModel->delete($id);
+        }
+
         return redirect()->to('/admin/perusahaan')
             ->with('success', 'Perusahaan berhasil dihapus');
     }
