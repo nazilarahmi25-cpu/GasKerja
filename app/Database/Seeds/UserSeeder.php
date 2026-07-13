@@ -4,11 +4,20 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
+/**
+ * Seeder untuk membuat akun admin bawaan, supaya tim (atau dosen saat
+ * presentasi) selalu punya cara praktis dapat akun admin tanpa perlu
+ * insert manual lewat SQL. Jalankan dengan: `php spark db:seed UserSeeder`.
+ */
 class UserSeeder extends Seeder
 {
     /**
-     * Akun admin untuk testing lokal. Aman dijalankan berulang kali —
-     * kalau email sudah ada, tidak akan bikin duplikat.
+     * Membuat satu akun admin uji (email: admin@gaskerja.test, password:
+     * admin12345) kalau belum ada. Idempoten — aman dijalankan berkali-kali,
+     * tidak akan membuat baris duplikat karena dicek dulu lewat email
+     * sebelum insert.
+     *
+     * @return void
      */
     public function run()
     {
@@ -22,7 +31,7 @@ class UserSeeder extends Seeder
         }
 
         $this->db->table('users')->insert([
-            'nama'       => 'Admin Testing',
+            'nama'       => 'Admin',
             'email'      => $email,
             'password'   => password_hash('admin12345', PASSWORD_DEFAULT),
             'role'       => 'admin',

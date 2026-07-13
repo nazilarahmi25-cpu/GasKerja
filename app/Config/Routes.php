@@ -15,7 +15,11 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('about-us', 'Home::about_us');
 
+// 'detail-lowongan' adalah route LAMA (dead code, lihat Home::detail_lowongan()).
+// 'lowongan/(:num)' adalah route AKTIF untuk halaman detail lowongan publik
+// — (:num) menangkap ID lowongan dari URL, contoh /lowongan/5 → $lowonganId=5.
 $routes->get('detail-lowongan', 'Home::detail_lowongan');
+$routes->get('lowongan/(:num)', 'Home::detailLowongan/$1');
 $routes->get('apply-lowongan', 'Home::apply_lowongan');
 
 $routes->get('profil', 'Home::profil');
@@ -48,7 +52,7 @@ $routes->post('register-perusahaan', 'Home::processRegisterPerusahaan');
 
 $routes->get('dashboard-pencari', 'Home::dashboard_pencari', ['filter' => 'auth:pencari_kerja']);
 $routes->get('dashboard-perusahaan', 'Home::dashboard_perusahaan', ['filter' => 'auth:perusahaan']);
-$routes->get('dashboard-admin', 'Home::dashboard_admin', ['filter' => 'auth:admin']);
+$routes->get('dashboard-admin', 'AdminController::dashboard', ['filter' => 'auth:admin']);
 
 
 /*
@@ -116,7 +120,16 @@ $routes->get('perusahaan/pelamar/(:num)', 'PerusahaanController::pelamar/$1');
 
 /*
 |--------------------------------------------------------------------------
-| API CRUD LOWONGAN (AJAX)
+| API CRUD LOWONGAN (AJAX) — DEAD CODE, jangan dijadikan acuan
+|--------------------------------------------------------------------------
+| LowonganController (beda dari LowonganModel) adalah percobaan awal CRUD
+| lowongan lewat AJAX yang tidak pernah selesai diintegrasikan ke frontend.
+| Nama field yang dipakai di controller-nya (tipe_pekerjaan, gaji_min,
+| gaji_max, deadline) bahkan TIDAK COCOK dengan kolom asli tabel `lowongan`
+| (tipe_kerja, gaji tunggal, tidak ada kolom deadline) — jadi store()/
+| update() di controller ini tidak akan pernah berhasil menyimpan data
+| dengan benar. Alur CRUD lowongan yang benar-benar dipakai ada di
+| PerusahaanController (milik sendiri) dan AdminController (semua).
 |--------------------------------------------------------------------------
 */
 

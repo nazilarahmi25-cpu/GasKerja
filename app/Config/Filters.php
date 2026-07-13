@@ -13,6 +13,12 @@ use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
 
+/**
+ * Konfigurasi filter (middleware) CodeIgniter — menentukan filter apa
+ * yang jalan sebelum/sesudah request, baik untuk semua route (globals)
+ * maupun untuk pola URI tertentu ($filters, lihat AuthFilter untuk
+ * proteksi login).
+ */
 class Filters extends BaseFilters
 {
     /**
@@ -78,9 +84,16 @@ class Filters extends BaseFilters
      * Format: 'alias' => ['before' => ['uri/pattern/*']]
      *
      * Penjelasan pattern:
-     *  - 'lowongan*'      → cocok dengan /lowongan, /lowongan/create, /lowongan/edit/1, dll
-     *  - 'profil'         → halaman profil user
-     *  - 'notifikasi'     → halaman notifikasi
+     *  - 'lowongan'         → listing AJAX CRUD (LowonganController::index)
+     *  - 'lowongan/store'   → tambah lowongan lewat AJAX CRUD lama
+     *  - 'lowongan/edit/*'  → form edit AJAX CRUD lama
+     *  - 'lowongan/update/*'/'lowongan/delete/*' → sama, AJAX CRUD lama
+     *  - 'profil'           → halaman profil user
+     *  - 'notifikasi'       → halaman notifikasi
+     *
+     * PENTING: pattern 'lowongan/*' TIDAK dipakai (beda dari sebelumnya)
+     * karena itu ikut menangkap route publik lowongan/(:num) — halaman
+     * detail lowongan yang harus bisa diakses tanpa login.
      *
      * Route dashboard-pencari / dashboard-perusahaan / dashboard-admin TIDAK
      * didaftarkan di sini lagi — masing-masing sudah pakai filter
@@ -91,7 +104,10 @@ class Filters extends BaseFilters
         'auth' => [
             'before' => [
                 'lowongan',
-                'lowongan/*',
+                'lowongan/store',
+                'lowongan/edit/*',
+                'lowongan/update/*',
+                'lowongan/delete/*',
                 'profil',
                 'notifikasi',
                 'logout',
