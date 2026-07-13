@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\PerusahaanModel;
+use App\Models\PencariKerjaModel;
+use App\Models\LamaranModel;
 
 class Home extends BaseController
 {
@@ -118,12 +120,17 @@ class Home extends BaseController
             'logged_in' => true
         ];
 
-        // Perusahaan_id dipisah dari user_id karena lowongan.perusahaan_id
-        // mengacu ke tabel perusahaan (profil), bukan users.
+        // Perusahaan_id / pencari_id dipisah dari user_id karena
+        // lowongan.perusahaan_id dan lamaran.pencari_id mengacu ke tabel
+        // profil masing-masing (perusahaan / pencari_kerja), bukan users.
         if ($user['role'] === 'perusahaan') {
             $perusahaanModel = new PerusahaanModel();
             $perusahaan = $perusahaanModel->where('user_id', $user['id'])->first();
             $sessionData['perusahaan_id'] = $perusahaan['id'] ?? null;
+        } elseif ($user['role'] === 'pencari_kerja') {
+            $pencariKerjaModel = new PencariKerjaModel();
+            $pencari = $pencariKerjaModel->where('user_id', $user['id'])->first();
+            $sessionData['pencari_id'] = $pencari['id'] ?? null;
         }
 
         session()->set($sessionData);
@@ -170,6 +177,14 @@ class Home extends BaseController
                 PASSWORD_DEFAULT
             ),
             'role'     => 'pencari_kerja'
+        ]);
+
+        // Buat juga baris profil di tabel pencari_kerja, terhubung lewat
+        // user_id. Field lain (alamat, no_hp, dst) diisi belakangan lewat
+        // halaman profil.
+        $pencariKerjaModel = new PencariKerjaModel();
+        $pencariKerjaModel->save([
+            'user_id' => $userModel->getInsertID(),
         ]);
 
         return redirect()->to('/login')
@@ -238,6 +253,57 @@ class Home extends BaseController
 
     public function processApply()
     {
+        // Hanya pencari kerja yang boleh melamar
+        if (!session()->get('logged_in') || session()->get('role') !== 'pencari_kerja') {
+            return redirect()->to('/login')
+                ->with('error', 'Hanya pencari kerja yang bisa melamar.');
+        }
+
+        $pencariId = session()->get('pencari_id');
+        if (!$pencariId) {
+            return redirect()->back()
+                ->with('error', 'Profil pencari kerja tidak ditemukan.');
+        }
+
+        $rules = [
+            'lowongan_id' => 'required|numeric',
+            'cv_file'     => 'uploaded[cv_file]|max_size[cv_file,2048]|ext_in[cv_file,pdf,doc,docx]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+        }
+
+        $lowonganId = $this->request->getPost('lowongan_id');
+
+        $lamaranModel = new LamaranModel();
+
+        // Cegah apply dua kali ke lowongan yang sama
+        $sudahApply = $lamaranModel
+            ->where('pencari_id', $pencariId)
+            ->where('lowongan_id', $lowonganId)
+            ->first();
+
+        if ($sudahApply) {
+            return redirect()->back()
+                ->with('error', 'Kamu sudah melamar ke lowongan ini sebelumnya.');
+        }
+
+        $file     = $this->request->getFile('cv_file');
+        $fileName = $file->getRandomName();
+        $file->move(WRITEPATH . 'uploads/cv', $fileName);
+
+        $lamaranModel->save([
+            'pencari_id'    => $pencariId,
+            'lowongan_id'   => $lowonganId,
+            'cv_file'       => $fileName,
+            'surat_lamaran' => $this->request->getPost('surat_lamaran'),
+            'status'        => 'diproses',
+            'tanggal_lamar' => date('Y-m-d H:i:s'),
+        ]);
+
         return redirect()->back()
             ->with('success', 'Lamaran berhasil dikirim');
     }

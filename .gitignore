@@ -3,3 +3,5 @@ vendor
 writable/debugbar/*
 writable/logs/*.log
 writable/session/*
+writable/uploads/cv/*
+!writable/uploads/cv/.gitkeep
