@@ -5,6 +5,10 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\RegisterPerusahaanModel;
 
+// DEAD CODE: controller ini tidak pernah di-routing di app/Config/Routes.php.
+// Flow login/register aktif ada di Home.php. Jangan dipakai sebagai acuan
+// session key ('isLoggedIn' di sini beda dari 'logged_in' yang dipakai Home.php).
+// Akan dibahas/dibersihkan di langkah cleanup terpisah.
 class AuthController extends BaseController
 {
     // ==============================

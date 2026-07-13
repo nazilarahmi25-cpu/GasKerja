@@ -46,9 +46,9 @@ $routes->post('register-perusahaan', 'Home::processRegisterPerusahaan');
 |--------------------------------------------------------------------------
 */
 
-$routes->get('dashboard-pencari', 'Home::dashboard_pencari');
-$routes->get('dashboard-perusahaan', 'Home::dashboard_perusahaan');
-$routes->get('dashboard-admin', 'Home::dashboard_admin');
+$routes->get('dashboard-pencari', 'Home::dashboard_pencari', ['filter' => 'auth:pencari_kerja']);
+$routes->get('dashboard-perusahaan', 'Home::dashboard_perusahaan', ['filter' => 'auth:perusahaan']);
+$routes->get('dashboard-admin', 'Home::dashboard_admin', ['filter' => 'auth:admin']);
 
 
 /*

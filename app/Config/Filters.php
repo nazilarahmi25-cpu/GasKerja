@@ -78,15 +78,18 @@ class Filters extends BaseFilters
      * Format: 'alias' => ['before' => ['uri/pattern/*']]
      *
      * Penjelasan pattern:
-     *  - 'dashboard-*'    → cocok dengan /dashboard-pencari, /dashboard-perusahaan, /dashboard-admin
      *  - 'lowongan*'      → cocok dengan /lowongan, /lowongan/create, /lowongan/edit/1, dll
      *  - 'profil'         → halaman profil user
      *  - 'notifikasi'     → halaman notifikasi
+     *
+     * Route dashboard-pencari / dashboard-perusahaan / dashboard-admin TIDAK
+     * didaftarkan di sini lagi — masing-masing sudah pakai filter
+     * 'auth:<role>' langsung di Routes.php supaya role-nya juga dicek,
+     * bukan cuma status login.
      */
     public array $filters = [
         'auth' => [
             'before' => [
-                'dashboard-*',
                 'lowongan',
                 'lowongan/*',
                 'profil',
