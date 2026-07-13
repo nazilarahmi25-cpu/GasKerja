@@ -21,7 +21,7 @@ class LowonganModel extends Model
         'gaji',
         'tipe_kerja',
         'status',
-        
+        'tanggal_post',
     ];
 
     protected $useTimestamps = true;
