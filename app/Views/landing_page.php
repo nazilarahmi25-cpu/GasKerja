@@ -1,3 +1,16 @@
+<?php
+/**
+ * Halaman beranda publik. Data lowongan disiapkan oleh Home::index():
+ * - $lowonganPopuler: diurutkan berdasarkan JUMLAH PELAMAR terbanyak
+ *   (LowonganModel::getPopulerDenganPerusahaan), untuk section
+ *   "Lowongan Populer" di kartu hero.
+ * - $lowonganTerbaru: diurutkan berdasarkan tanggal posting terbaru
+ *   (LowonganModel::getAllDenganPerusahaan), untuk section
+ *   "Lowongan Terbaru" di bawahnya.
+ * Keduanya cuma berisi lowongan berstatus 'aktif' (lowongan pending/
+ * nonaktif sengaja tidak dikirim ke view ini sama sekali).
+ */
+?>
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('content') ?>
@@ -37,28 +50,27 @@
             
         </div>
 
+        <!-- Lowongan Populer: urut jumlah pelamar terbanyak (lihat docblock di atas) -->
         <div class="hero-card">
             <h3>Lowongan Populer</h3>
 
-            <div class="job-mini">
-                <strong>Frontend Developer</strong><br>
-                <span>PT Teknologi Nusantara</span>
-            </div>
-
-            <div class="job-mini">
-                <strong>UI/UX Designer</strong><br>
-                <span>Creative Studio</span>
-            </div>
-
-            <div class="job-mini">
-                <strong>Digital Marketing</strong><br>
-                <span>Media Inspirasi</span>
-            </div>
+            <?php if (empty($lowonganPopuler)): ?>
+                <p>Belum ada lowongan tersedia.</p>
+            <?php else: ?>
+                <?php foreach ($lowonganPopuler as $lowongan): ?>
+                    <a href="<?= base_url('lowongan/' . $lowongan['id']) ?>" class="job-mini-link">
+                        <div class="job-mini">
+                            <strong><?= esc($lowongan['posisi']) ?></strong><br>
+                            <span><?= esc($lowongan['mitra_kerja']) ?></span>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
 
-<!-- LOWONGAN TERBARU -->
+<!-- LOWONGAN TERBARU: urut tanggal_post terbaru (lihat docblock di atas) -->
 <section class="section">
     <div class="container">
         <h2>Lowongan Terbaru</h2>
@@ -68,35 +80,21 @@
         </p>
 
         <div class="job-grid">
-            <div class="job-card">
-                <span class="job-type">Full Time</span>
-                <h3>Frontend Developer</h3>
-                <p>PT Teknologi Nusantara</p>
-                <p>Palu, Sulawesi Tengah</p>
-                <a href="<?= base_url('/detail-lowongan') ?>" class="btn-outline">
-                    Lihat Detail
-                </a>
-            </div>
-
-            <div class="job-card">
-                <span class="job-type">Part Time</span>
-                <h3>Admin Media Sosial</h3>
-                <p>Creative Agency</p>
-                <p>Remote</p>
-                <a href="<?= base_url('/detail-lowongan') ?>" class="btn-outline">
-                    Lihat Detail
-                </a>
-            </div>
-
-            <div class="job-card">
-                <span class="job-type">Freelance</span>
-                <h3>Graphic Designer</h3>
-                <p>Studio Kreatif</p>
-                <p>Makassar</p>
-                <a href="<?= base_url('/detail-lowongan') ?>" class="btn-outline">
-                    Lihat Detail
-                </a>
-            </div>
+            <?php if (empty($lowonganTerbaru)): ?>
+                <p>Belum ada lowongan tersedia.</p>
+            <?php else: ?>
+                <?php foreach ($lowonganTerbaru as $lowongan): ?>
+                    <div class="job-card">
+                        <span class="job-type"><?= esc($lowongan['jam_kerja']) ?></span>
+                        <h3><?= esc($lowongan['posisi']) ?></h3>
+                        <p><?= esc($lowongan['mitra_kerja']) ?></p>
+                        <p><?= esc($lowongan['lokasi']) ?></p>
+                        <a href="<?= base_url('lowongan/' . $lowongan['id']) ?>" class="btn-outline">
+                            Lihat Detail
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -137,6 +135,13 @@
 
 <?= $this->endSection() ?>
 
+<!--
+    CATATAN: markup di bawah ini (role-selector) berada DI LUAR
+    $this->section('content')/endSection() di atas, sehingga TIDAK PERNAH
+    ikut dirender ke halaman (CI4 cuma mengambil isi di antara section()
+    dan endSection() saat extend ke layout/template). Kode mati/sisa,
+    dibiarkan apa adanya karena di luar scope perubahan saat ini.
+-->
 <label>Pilih Role</label>
 
     <div class="role-selector">
