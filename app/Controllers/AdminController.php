@@ -7,6 +7,12 @@ use App\Models\LowonganModel;
 use App\Models\LamaranModel;
 use App\Models\PerusahaanModel;
 
+/**
+ * Controller untuk semua halaman & aksi khusus role admin: dashboard,
+ * kelola pengguna, kelola mitra kerja (perusahaan), kelola lowongan, dan
+ * kelola lamaran. Setiap method publik di sini WAJIB memanggil
+ * cekAdmin() di baris pertama sebagai gerbang otorisasi.
+ */
 class AdminController extends BaseController
 {
     protected $userModel;
@@ -22,6 +28,15 @@ class AdminController extends BaseController
         $this->perusahaanModel = new PerusahaanModel();
     }
 
+    /**
+     * Gerbang otorisasi: memastikan yang mengakses adalah user yang
+     * sedang login DAN rolenya 'admin'. Dipanggil di baris pertama setiap
+     * method publik di controller ini.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse|null Redirect ke /login
+     *         kalau akses ditolak, atau null kalau boleh lanjut (caller
+     *         harus cek: `if ($redirect) return $redirect;`).
+     */
     private function cekAdmin()
     {
         if (!session()->get('logged_in') || session()->get('role') !== 'admin') {
@@ -31,9 +46,44 @@ class AdminController extends BaseController
     }
 
     // ==========================
+    // DASHBOARD
+    // ==========================
+
+    /**
+     * Halaman utama dashboard admin: 3 kartu statistik (total user,
+     * jumlah perusahaan, jumlah pelamar) dan 3 tabel preview (5 baris
+     * teratas dari masing-masing: lamaran, perusahaan, lowongan) dengan
+     * tautan "lihat semua" ke halaman lengkapnya.
+     *
+     * @return string View admin/dashboard.
+     */
+    public function dashboard()
+    {
+        $redirect = $this->cekAdmin();
+        if ($redirect) return $redirect;
+
+        $data['activeMenu'] = 'dashboard';
+
+        $data['totalUsers']      = $this->userModel->countAllResults();
+        $data['totalPerusahaan'] = $this->userModel->where('role', 'perusahaan')->countAllResults();
+        $data['totalPelamar']    = $this->userModel->where('role', 'pencari_kerja')->countAllResults();
+
+        $data['lamaranPreview']    = array_slice($this->lamaranModel->getAllDenganDetail(), 0, 5);
+        $data['perusahaanPreview'] = array_slice($this->perusahaanModel->getAllDenganUser(), 0, 5);
+        $data['lowonganPreview']   = array_slice($this->lowonganModel->getAllDenganPerusahaan(), 0, 5);
+
+        return view('admin/dashboard', $data);
+    }
+
+    // ==========================
     // CRUD PENGGUNA (users)
     // ==========================
 
+    /**
+     * Menampilkan daftar semua pengguna dengan role pencari_kerja.
+     *
+     * @return string View admin/pengguna.
+     */
     public function pengguna()
     {
         $redirect = $this->cekAdmin();
@@ -46,12 +96,19 @@ class AdminController extends BaseController
         return view('admin/pengguna', $data);
     }
 
-    public function hapusPengguna($id)
+    /**
+     * Menghapus (soft delete) satu akun pengguna.
+     *
+     * @param int $userId ID baris di tabel `users`.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function hapusPengguna($userId)
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
-        $this->userModel->delete($id);
+        $this->userModel->delete($userId);
         return redirect()->to('/admin/pengguna')
             ->with('success', 'Pengguna berhasil dihapus');
     }
@@ -60,6 +117,12 @@ class AdminController extends BaseController
     // CRUD PERUSAHAAN
     // ==========================
 
+    /**
+     * Menampilkan daftar semua mitra kerja (perusahaan) beserta data
+     * pemiliknya (nama, email dari tabel users).
+     *
+     * @return string View admin/perusahaan.
+     */
     public function perusahaan()
     {
         $redirect = $this->cekAdmin();
@@ -72,19 +135,32 @@ class AdminController extends BaseController
         return view('admin/perusahaan', $data);
     }
 
-    public function hapusPerusahaan($id)
+    /**
+     * Menghapus satu mitra kerja. Menghapus (soft delete) DUA baris
+     * sekaligus: profil di `perusahaan` dan akun login terkait di `users`
+     * — supaya akun itu juga tidak bisa login lagi setelah dihapus.
+     *
+     * Kenapa dua-duanya dihapus manual (bukan mengandalkan foreign key
+     * CASCADE): soft delete cuma mengisi kolom deleted_at, bukan benar-benar
+     * menghapus baris dari database — jadi FK "ON DELETE CASCADE" tidak
+     * pernah terpicu (itu cuma jalan untuk penghapusan permanen/hard
+     * delete). Makanya kedua tabel harus di-soft-delete satu per satu di
+     * sini.
+     *
+     * @param int $perusahaanId ID baris di tabel `perusahaan` (BUKAN
+     *        users.id — lihat catatan arsitektur di PerusahaanModel).
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function hapusPerusahaan($perusahaanId)
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
-        // $id di sini adalah perusahaan.id. Hapus baris perusahaan DAN
-        // akun users terkait (soft delete keduanya) supaya akun tidak bisa
-        // login lagi — soft delete tidak memicu FK CASCADE, jadi harus
-        // dihapus manual dari kedua tabel.
-        $perusahaan = $this->perusahaanModel->find($id);
+        $perusahaan = $this->perusahaanModel->find($perusahaanId);
         if ($perusahaan) {
             $this->userModel->delete($perusahaan['user_id']);
-            $this->perusahaanModel->delete($id);
+            $this->perusahaanModel->delete($perusahaanId);
         }
 
         return redirect()->to('/admin/perusahaan')
@@ -95,6 +171,12 @@ class AdminController extends BaseController
     // CRUD LOWONGAN
     // ==========================
 
+    /**
+     * Menampilkan daftar semua lowongan (semua status — admin perlu lihat
+     * yang pending untuk disetujui, bukan cuma yang aktif).
+     *
+     * @return string View admin/lowongan.
+     */
     public function lowongan()
     {
         $redirect = $this->cekAdmin();
@@ -104,6 +186,12 @@ class AdminController extends BaseController
         return view('admin/lowongan', $data);
     }
 
+    /**
+     * Menampilkan form kosong untuk menambah lowongan baru (dropdown
+     * daftar perusahaan diambil dari users berrole perusahaan).
+     *
+     * @return string View admin/form_lowongan.
+     */
     public function tambahLowongan()
     {
         $redirect = $this->cekAdmin();
@@ -114,6 +202,11 @@ class AdminController extends BaseController
         return view('admin/form_lowongan', $data);
     }
 
+    /**
+     * Memproses submit form tambah lowongan (dari tambahLowongan()).
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function simpanLowongan()
     {
         $redirect = $this->cekAdmin();
@@ -151,12 +244,22 @@ class AdminController extends BaseController
             ->with('success', 'Lowongan berhasil ditambahkan!');
     }
 
-    public function editLowongan($id)
+    /**
+     * Menampilkan form edit untuk satu lowongan, sudah terisi data
+     * sebelumnya.
+     *
+     * @param int $lowonganId ID baris di tabel `lowongan`.
+     *
+     * @return string|\CodeIgniter\HTTP\RedirectResponse View
+     *         admin/form_lowongan, atau redirect dengan pesan error kalau
+     *         id tidak ditemukan.
+     */
+    public function editLowongan($lowonganId)
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
-        $data['lowongan']   = $this->lowonganModel->find($id);
+        $data['lowongan']   = $this->lowonganModel->find($lowonganId);
         $data['perusahaan'] = $this->userModel->where('role', 'perusahaan')->findAll();
 
         if (!$data['lowongan']) {
@@ -166,7 +269,14 @@ class AdminController extends BaseController
         return view('admin/form_lowongan', $data);
     }
 
-    public function updateLowongan($id)
+    /**
+     * Memproses submit form edit lowongan (dari editLowongan()).
+     *
+     * @param int $lowonganId ID lowongan yang diedit.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function updateLowongan($lowonganId)
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
@@ -179,12 +289,12 @@ class AdminController extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to("/admin/lowongan/edit/{$id}")
+            return redirect()->to("/admin/lowongan/edit/{$lowonganId}")
                 ->with('errors', $this->validator->getErrors())
                 ->withInput();
         }
 
-        $this->lowonganModel->update($id, [
+        $this->lowonganModel->update($lowonganId, [
             'judul'       => $this->request->getPost('judul'),
             'deskripsi'   => $this->request->getPost('deskripsi'),
             'kualifikasi' => $this->request->getPost('kualifikasi'),
@@ -198,12 +308,19 @@ class AdminController extends BaseController
             ->with('success', 'Lowongan berhasil diperbarui!');
     }
 
-    public function hapusLowongan($id)
+    /**
+     * Menghapus (soft delete) satu lowongan.
+     *
+     * @param int $lowonganId ID lowongan yang dihapus.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function hapusLowongan($lowonganId)
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
-        $this->lowonganModel->delete($id);
+        $this->lowonganModel->delete($lowonganId);
         return redirect()->to('/admin/lowongan')
             ->with('success', 'Lowongan berhasil dihapus');
     }
@@ -212,6 +329,12 @@ class AdminController extends BaseController
     // CRUD LAMARAN
     // ==========================
 
+    /**
+     * Menampilkan daftar semua lamaran beserta detail lengkap (nama
+     * pelamar, posisi, mitra kerja) lewat LamaranModel::getAllDenganDetail().
+     *
+     * @return string View admin/lamaran.
+     */
     public function lamaran()
     {
         $redirect = $this->cekAdmin();
@@ -221,7 +344,18 @@ class AdminController extends BaseController
         return view('admin/lamaran', $data);
     }
 
-    public function updateStatusLamaran($id, $status)
+    /**
+     * Mengubah status satu lamaran (misal dari 'diproses' menjadi
+     * 'diterima'/'ditolak').
+     *
+     * @param int    $lamaranId ID baris di tabel `lamaran`.
+     * @param string $status    Status baru — cuma 'diproses', 'diterima',
+     *        atau 'ditolak' yang diterima (lihat enum kolom status di
+     *        migration CreateLamaranTable).
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function updateStatusLamaran($lamaranId, $status)
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
@@ -231,17 +365,24 @@ class AdminController extends BaseController
             return redirect()->to('/admin/lamaran')->with('error', 'Status tidak valid');
         }
 
-        $this->lamaranModel->update($id, ['status' => $status]);
+        $this->lamaranModel->update($lamaranId, ['status' => $status]);
         return redirect()->to('/admin/lamaran')
             ->with('success', 'Status lamaran diperbarui');
     }
 
-    public function hapusLamaran($id)
+    /**
+     * Menghapus (soft delete) satu lamaran.
+     *
+     * @param int $lamaranId ID lamaran yang dihapus.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function hapusLamaran($lamaranId)
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
-        $this->lamaranModel->delete($id);
+        $this->lamaranModel->delete($lamaranId);
         return redirect()->to('/admin/lamaran')
             ->with('success', 'Lamaran berhasil dihapus');
     }

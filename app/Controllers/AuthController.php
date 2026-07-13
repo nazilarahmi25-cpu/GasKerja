@@ -15,6 +15,12 @@ class AuthController extends BaseController
     // HALAMAN LOGIN
     // ==============================
 
+    /**
+     * [DEAD CODE — lihat catatan class di atas] Versi lama halaman login,
+     * tidak pernah di-routing. Versi aktif: Home::login().
+     *
+     * @return string|\CodeIgniter\HTTP\RedirectResponse
+     */
     public function login()
     {
         // Kalau sudah login, langsung redirect ke dashboard sesuai role
@@ -29,6 +35,15 @@ class AuthController extends BaseController
     // PROSES LOGIN
     // ==============================
 
+    /**
+     * [DEAD CODE] Versi lama proses login. Set session key 'isLoggedIn'
+     * (bukan 'logged_in' yang dipakai flow aktif) — kalau ini pernah
+     * di-routing kembali di masa depan, ingat untuk menyamakan session
+     * key-nya dulu, atau AuthFilter tidak akan mengenali user sebagai
+     * login. Versi aktif: Home::processLogin().
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function processLogin()
     {
         $model = new UserModel();
@@ -64,6 +79,12 @@ class AuthController extends BaseController
     // HALAMAN REGISTER PENCARI KERJA
     // ==============================
 
+    /**
+     * [DEAD CODE] Versi lama halaman register. Versi aktif:
+     * Home::register().
+     *
+     * @return string|\CodeIgniter\HTTP\RedirectResponse
+     */
     public function register()
     {
         if (session()->get('isLoggedIn')) {
@@ -77,6 +98,15 @@ class AuthController extends BaseController
     // PROSES REGISTER PENCARI KERJA
     // ==============================
 
+    /**
+     * [DEAD CODE] Versi lama proses registrasi pencari kerja. Beda dari
+     * versi aktif (Home::processRegister()): method ini TIDAK membuat
+     * baris profil di tabel `pencari_kerja` — kalau sampai dipakai, fitur
+     * apply lamaran akan gagal karena session('pencari_id') tidak akan
+     * pernah ter-set. Versi aktif: Home::processRegister().
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function processRegister()
     {
         $model = new UserModel();
@@ -113,6 +143,12 @@ class AuthController extends BaseController
     // HALAMAN REGISTER PERUSAHAAN
     // ==============================
 
+    /**
+     * [DEAD CODE] Versi lama halaman register perusahaan. Versi aktif:
+     * Home::register_perusahaan().
+     *
+     * @return string|\CodeIgniter\HTTP\RedirectResponse
+     */
     public function registerPerusahaan()
     {
         if (session()->get('isLoggedIn')) {
@@ -126,6 +162,19 @@ class AuthController extends BaseController
     // PROSES REGISTER PERUSAHAAN
     // ==============================
 
+    /**
+     * [DEAD CODE] Versi lama proses registrasi perusahaan — arsitekturnya
+     * beda total dari versi aktif: method ini simpan ke tabel terpisah
+     * `RegisterPerusahaan` (lewat RegisterPerusahaanModel) alih-alih ke
+     * `users` + `perusahaan`. RegisterPerusahaanModel sendiri punya bug
+     * mismatch nama file/class (file `RegisterPerusahaan.php` isinya class
+     * `RegisterPerusahaanModel`) yang bikin class ini gagal di-autoload —
+     * jadi method ini akan fatal error "Class not found" kalau sampai
+     * benar-benar dipanggil. Sengaja tidak diperbaiki (di luar scope saat
+     * ini). Versi aktif: Home::processRegisterPerusahaan().
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function processRegisterPerusahaan()
     {
         // Validasi input
@@ -167,6 +216,11 @@ class AuthController extends BaseController
     // LOGOUT
     // ==============================
 
+    /**
+     * [DEAD CODE] Versi lama logout. Versi aktif: Home::logout().
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function logout()
     {
         session()->destroy();
@@ -178,6 +232,15 @@ class AuthController extends BaseController
     // HELPER: redirect berdasarkan role
     // ==============================
 
+    /**
+     * Menentukan URL dashboard tujuan berdasarkan role user. Fungsinya
+     * sama seperti Home::redirectByRole(), tapi ini salinan terpisah
+     * khusus dipakai method-method dead code di controller ini.
+     *
+     * @param string $role 'admin'|'perusahaan'|'pencari_kerja'.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     private function redirectByRole(string $role): \CodeIgniter\HTTP\RedirectResponse
     {
         switch ($role) {
