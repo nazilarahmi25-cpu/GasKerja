@@ -5,16 +5,24 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
 
 /**
- * LowonganModel & NotifikasiModel sama-sama declare useTimestamps=true dan
- * useSoftDeletes=true, tapi tabel live tidak punya kolom created_at/
- * updated_at/deleted_at secara lengkap — pola yang sama seperti perusahaan,
- * lamaran, dan pencari_kerja sebelumnya.
+ * KENAPA migration ini dibuat:
+ * Sama seperti AddTimestampsToLamaranAndPencariKerja — LowonganModel dan
+ * NotifikasiModel declare `$useTimestamps = true` dan `$useSoftDeletes =
+ * true`, yang mewajibkan kolom created_at/updated_at/deleted_at ada di
+ * tabel. Tabel live `lowongan` dan `notifikasi` tidak punya kolom itu
+ * lengkap, jadi setiap simpan/hapus lowongan lewat Model akan gagal
+ * "Unknown column" — ini sudah TERBUKTI nyata: sebelum migration ini
+ * dijalankan, PerusahaanController::simpan() (tambah lowongan) betulan
+ * gagal HTTP 500 saat dicoba.
  *
- * lowongan: sudah punya `tanggal_post` (diisi manual di controller),
- * TIDAK dihapus/diganti — cuma ditambah 3 kolom yang hilang.
+ * lowongan: sudah punya `tanggal_post` (diisi manual di controller,
+ * dipakai sebagai "kapan lowongan diposting" versi tampilan) — kolom itu
+ * TIDAK dihapus/diganti, cuma ditambah 3 kolom audit yang hilang di
+ * sampingnya.
  * notifikasi: sudah punya `created_at`, tinggal tambah updated_at/deleted_at.
  *
- * Tidak ada FK baru di migration ini, jadi processIndexes() tidak diperlukan.
+ * Tidak ada foreign key baru di migration ini, jadi processIndexes() tidak
+ * diperlukan.
  */
 class AddTimestampsToLowonganAndNotifikasi extends Migration
 {

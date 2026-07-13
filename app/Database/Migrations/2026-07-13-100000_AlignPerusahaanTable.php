@@ -5,13 +5,25 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
 
 /**
- * Migration baru untuk menyelaraskan tabel `perusahaan` yang live dengan
- * arsitektur baru: `perusahaan` jadi tabel profil (mengikuti pola
- * `pencari_kerja`), terhubung ke `users` lewat `user_id`. Login/kredensial
- * tetap sepenuhnya di tabel `users` — tidak diduplikasi lagi di sini.
+ * KENAPA migration ini dibuat:
+ * Sebelumnya, akun perusahaan didaftarkan sebagai baris di tabel `users`
+ * (kolom role='perusahaan'), tapi `lowongan.perusahaan_id` punya foreign
+ * key ke tabel `perusahaan` yang TERPISAH. Akibatnya id yang dipakai saat
+ * menyimpan lowongan (id dari `users`) tidak pernah cocok dengan id di
+ * `perusahaan` — insert lowongan gagal foreign key constraint, atau (lebih
+ * bahaya) nyasar ke perusahaan lain yang kebetulan id-nya sama.
+ *
+ * Perbaikannya: `perusahaan` diubah jadi tabel PROFIL (mengikuti pola yang
+ * sama seperti `pencari_kerja`), terhubung ke `users` lewat kolom `user_id`
+ * baru. Kredensial login (email/password/role) tetap satu-satunya sumber
+ * kebenaran di tabel `users` — makanya kolom itu dihapus dari `perusahaan`
+ * di migration ini (poin 4 di up()), supaya tidak ada data ganda yang bisa
+ * beda sendiri-sendiri.
  *
  * Migration lama `CreatePerusahaanTable` TIDAK diedit karena sudah pernah
- * dijalankan (tercatat di tabel migrations, batch 2).
+ * dijalankan di database (tercatat di tabel `migrations`, batch 2) — CI4
+ * tidak akan menjalankan ulang migration yang sudah tercatat, jadi
+ * mengedit file lama tidak akan mengubah skema yang sudah live.
  */
 class AlignPerusahaanTable extends Migration
 {

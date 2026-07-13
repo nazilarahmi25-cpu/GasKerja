@@ -5,13 +5,22 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
 
 /**
- * LamaranModel & PencariKerjaModel sudah declare useTimestamps + useSoftDeletes
- * (created_at/updated_at/deleted_at), tapi tabel live `lamaran` dan
- * `pencari_kerja` tidak punya kolom-kolom itu sama sekali — bikin save()
- * gagal "Unknown column". Migration ini menyelaraskan skema live dengan
- * yang diasumsikan Model, mengikuti pola yang sama seperti AlignPerusahaanTable.
+ * KENAPA migration ini dibuat:
+ * Setiap Model CodeIgniter yang set `$useTimestamps = true` dan
+ * `$useSoftDeletes = true` (lihat LamaranModel & PencariKerjaModel)
+ * OTOMATIS mencoba membaca/menulis kolom created_at, updated_at, dan
+ * deleted_at setiap kali save()/update()/delete() dipanggil — ini bukan
+ * fitur opsional, jadi kolomnya WAJIB ada di tabel.
  *
- * Tidak ada FK baru di migration ini, jadi processIndexes() tidak diperlukan.
+ * Ternyata tabel live `lamaran` dan `pencari_kerja` tidak punya kolom-kolom
+ * itu sama sekali (kemungkinan dibuat manual tanpa lewat migration resmi).
+ * Akibatnya setiap kali fitur apply lamaran dipakai, Model akan gagal
+ * dengan error SQL "Unknown column 'created_at'". Ini pola yang sama
+ * seperti yang sudah diperbaiki di AlignPerusahaanTable — makanya
+ * pendekatannya juga sama: tambah kolom yang hilang, bukan ubah Model.
+ *
+ * Tidak ada foreign key baru di migration ini (cuma tambah kolom biasa),
+ * jadi processIndexes() tidak diperlukan di sini.
  */
 class AddTimestampsToLamaranAndPencariKerja extends Migration
 {
