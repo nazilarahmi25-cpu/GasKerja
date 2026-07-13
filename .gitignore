@@ -1,3 +1,5 @@
 vendor
 .env
 writable/debugbar/*.json
+writable/logs/*.log
+writable/session/*
