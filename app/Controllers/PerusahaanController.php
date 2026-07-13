@@ -30,7 +30,7 @@ class PerusahaanController extends BaseController
         $redirect = $this->cekPerusahaan();
         if ($redirect) return $redirect;
 
-        $data['lowongan'] = $this->lowonganModel->getLowonganByPerusahaan(session()->get('user_id'));
+        $data['lowongan'] = $this->lowonganModel->getLowonganByPerusahaan(session()->get('perusahaan_id'));
         return view('perusahaan/kelola_lowongan', $data);
     }
 
@@ -64,7 +64,7 @@ class PerusahaanController extends BaseController
         }
 
         $this->lowonganModel->save([
-            'perusahaan_id' => session()->get('user_id'),
+            'perusahaan_id' => session()->get('perusahaan_id'),
             'judul'         => $this->request->getPost('judul'),
             'deskripsi'     => $this->request->getPost('deskripsi'),
             'kualifikasi'   => $this->request->getPost('kualifikasi'),
@@ -88,7 +88,7 @@ class PerusahaanController extends BaseController
         $lowongan = $this->lowonganModel->find($id);
 
         // Pastikan lowongan milik perusahaan ini
-        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('user_id')) {
+        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('perusahaan_id')) {
             return redirect()->to('/perusahaan/lowongan')
                 ->with('error', 'Lowongan tidak ditemukan atau bukan milik Anda');
         }
@@ -103,7 +103,7 @@ class PerusahaanController extends BaseController
         if ($redirect) return $redirect;
 
         $lowongan = $this->lowonganModel->find($id);
-        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('user_id')) {
+        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('perusahaan_id')) {
             return redirect()->to('/perusahaan/lowongan')->with('error', 'Akses ditolak');
         }
 
@@ -139,7 +139,7 @@ class PerusahaanController extends BaseController
         if ($redirect) return $redirect;
 
         $lowongan = $this->lowonganModel->find($id);
-        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('user_id')) {
+        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('perusahaan_id')) {
             return redirect()->to('/perusahaan/lowongan')->with('error', 'Akses ditolak');
         }
 
@@ -155,7 +155,7 @@ class PerusahaanController extends BaseController
         if ($redirect) return $redirect;
 
         $lowongan = $this->lowonganModel->find($lowongan_id);
-        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('user_id')) {
+        if (!$lowongan || $lowongan['perusahaan_id'] != session()->get('perusahaan_id')) {
             return redirect()->to('/perusahaan/lowongan')->with('error', 'Akses ditolak');
         }
 

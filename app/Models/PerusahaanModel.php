@@ -14,12 +14,9 @@ class PerusahaanModel extends Model
     protected $protectFields = true;
 
     protected $allowedFields = [
+        'user_id',
         'nama_perusahaan',
-        'email',
         'alamat',
-        'password',
-        'role',
-        'foto'
     ];
 
     protected $useTimestamps = true;

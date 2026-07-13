@@ -110,13 +110,23 @@ class Home extends BaseController
                 ->with('error', 'Password salah');
         }
 
-        session()->set([
+        $sessionData = [
             'user_id'   => $user['id'],
             'nama'      => $user['nama'],
             'email'     => $user['email'],
             'role'      => $user['role'],
             'logged_in' => true
-        ]);
+        ];
+
+        // Perusahaan_id dipisah dari user_id karena lowongan.perusahaan_id
+        // mengacu ke tabel perusahaan (profil), bukan users.
+        if ($user['role'] === 'perusahaan') {
+            $perusahaanModel = new PerusahaanModel();
+            $perusahaan = $perusahaanModel->where('user_id', $user['id'])->first();
+            $sessionData['perusahaan_id'] = $perusahaan['id'] ?? null;
+        }
+
+        session()->set($sessionData);
 
         return $this->redirectByRole(
             $user['role']
@@ -212,6 +222,14 @@ class Home extends BaseController
                 PASSWORD_DEFAULT
             ),
             'role'     => 'perusahaan'
+        ]);
+
+        // Buat juga baris profil di tabel perusahaan, terhubung lewat user_id
+        $perusahaanModel = new PerusahaanModel();
+        $perusahaanModel->save([
+            'user_id'         => $userModel->getInsertID(),
+            'nama_perusahaan' => $this->request->getPost('nama_umkm'),
+            'alamat'          => $this->request->getPost('alamat'),
         ]);
 
         return redirect()->to('/login')
