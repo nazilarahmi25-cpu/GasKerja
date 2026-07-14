@@ -94,6 +94,12 @@ $routes->post('admin/lowongan/update/(:num)', 'AdminController::updateLowongan/$
 
 $routes->get('admin/lowongan/hapus/(:num)', 'AdminController::hapusLowongan/$1');
 
+// 'admin/pelamar' adalah route AKTIF untuk Halaman 2 dashboard (Kelola
+// Pelamar) — sengaja diarahkan ke method AdminController::lamaran() yang
+// SAMA dengan 'admin/lamaran' (bukan duplikat logic), cuma beda label URL
+// yang dipakai user-facing. Route 'admin/lamaran' tetap dipertahankan
+// supaya tidak breaking kalau ada tautan lama yang masih memakainya.
+$routes->get('admin/pelamar', 'AdminController::lamaran');
 $routes->get('admin/lamaran', 'AdminController::lamaran');
 $routes->get('admin/lamaran/status/(:num)/(:alpha)', 'AdminController::updateStatusLamaran/$1/$2');
 $routes->get('admin/lamaran/hapus/(:num)', 'AdminController::hapusLamaran/$1');

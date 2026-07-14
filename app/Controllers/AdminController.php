@@ -330,18 +330,21 @@ class AdminController extends BaseController
     // ==========================
 
     /**
-     * Menampilkan daftar semua lamaran beserta detail lengkap (nama
-     * pelamar, posisi, mitra kerja) lewat LamaranModel::getAllDenganDetail().
+     * Menampilkan daftar LENGKAP semua lamaran (Halaman 2 dashboard —
+     * "Kelola Pelamar"), beserta detail lengkap (nama pelamar, posisi,
+     * mitra kerja) lewat LamaranModel::getAllDenganDetail(). Method yang
+     * sama dipanggil baik lewat route admin/pelamar maupun admin/lamaran.
      *
-     * @return string View admin/lamaran.
+     * @return string View admin/pelamar.
      */
     public function lamaran()
     {
         $redirect = $this->cekAdmin();
         if ($redirect) return $redirect;
 
+        $data['activeMenu'] = 'pelamar';
         $data['lamaran'] = $this->lamaranModel->getAllDenganDetail();
-        return view('admin/lamaran', $data);
+        return view('admin/pelamar', $data);
     }
 
     /**
