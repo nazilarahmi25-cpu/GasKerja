@@ -1,0 +1,147 @@
+/*
+ * Diselaraskan dengan public/assets/css/style.css (halaman publik/beranda):
+ * warna primer #2563eb, hover #102b66, font Arial/Helvetica (bukan Poppins
+ * — itu di-load di layout/header.php tapi tidak pernah dipakai di beranda).
+ */
+:root {
+    --admin-primary: #2563eb;
+    --admin-primary-hover: #102b66;
+    --admin-primary-light: #E7EDFC;
+    --admin-text: #1f2937;
+    --admin-text-muted: #6B7280;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8fafc;
+    color: var(--admin-text);
+}
+
+.admin-topbar {
+    padding: 18px 0;
+    background: #fff;
+    border-bottom: 1px solid #E5E9F2;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Logo: disalin persis dari public/assets/css/style.css (beranda) */
+.logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo {
+    width: 80%;
+    height: 80px;
+    object-fit: contain;
+}
+
+.logo-text {
+    color: #000000;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.admin-icon-muted {
+    color: var(--admin-text-muted);
+}
+
+.admin-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--admin-primary-light);
+    color: var(--admin-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-body {
+    min-height: calc(100vh - 116px);
+}
+
+.admin-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid #E5E9F2;
+    padding: 1.5rem 0;
+    min-height: calc(100vh - 116px);
+}
+
+.admin-menu-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .65rem 1.5rem;
+    color: var(--admin-text-muted);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    font-size: .95rem;
+}
+
+.admin-menu-item:hover {
+    background: var(--admin-primary-light);
+    color: var(--admin-primary);
+}
+
+.admin-menu-item.active {
+    background: var(--admin-primary-light);
+    color: var(--admin-primary);
+    border-left-color: var(--admin-primary);
+    font-weight: 600;
+}
+
+.admin-menu-logout {
+    margin-top: 2rem;
+    border-top: 1px solid #E5E9F2;
+    padding-top: 1rem;
+}
+
+.admin-content {
+    padding: 2rem;
+    width: 100%;
+}
+
+.admin-card {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+}
+
+.admin-stat-number {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--admin-primary);
+}
+
+.table-admin thead th {
+    background: #f8fafc;
+    color: var(--admin-text);
+    font-weight: 600;
+    border: none;
+}
+
+.table-admin tbody tr:nth-child(even) {
+    background: #F7FAFF;
+}
+
+.btn-admin-primary {
+    background: var(--admin-primary);
+    border-color: var(--admin-primary);
+    color: #fff;
+    border-radius: 10px;
+    padding: 8px 20px;
+    font-weight: 600;
+}
+
+.btn-admin-primary:hover {
+    background: var(--admin-primary-hover);
+    border-color: var(--admin-primary-hover);
+    color: #fff;
+}
